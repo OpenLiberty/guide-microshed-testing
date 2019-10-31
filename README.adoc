@@ -9,7 +9,7 @@
 :projectid: microshed-testing
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2019-XX-XX
+:page-releasedate: 2019-11-04
 :page-guide-category: microprofile
 :page-essential: true
 :page-essential-order: 1
