@@ -1,3 +1,4 @@
+// tag::copyright[]
 /*
  * Copyright (c) 2019 IBM Corporation and others
  *
@@ -16,6 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// tag::copyright[]
 package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-//  Copyright (c) 2017, 2019 IBM Corporation and others.
+//  Copyright (c) 2019 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -6,50 +6,46 @@
 // Contributors:
 //     IBM Corporation
 //
-:projectid: rest-intro
+:projectid: microshed-testing
 :page-layout: guide-multipane
-:page-duration: 30 minutes
-:page-releasedate: 2017-09-19
+:page-duration: 20 minutes
+:page-releasedate: 2019-XX-XX
 :page-guide-category: microprofile
 :page-essential: true
 :page-essential-order: 1
-:page-description: Learn how to create a REST service with JAX-RS, JSON-B, and Open Liberty.
+:page-description: Learn how to test a MicroProfile or Jakarta EE application using MicroShed Testing.
 :guide-author: Open Liberty
-:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
-:page-related-guides: ['rest-client-java', 'rest-client-angularjs']
+:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE', 'Testing']
+:page-related-guides: ['rest-intro', 'docker', 'rest-client-java']
 :page-permalink: /guides/{projectid}
 :repo-description: Visit the https://openliberty.io/guides/{projectid}.html[website] for the rendered version of the guide.
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
-= Creating a RESTful web service
+= Testing a MicroProfile or Jakarta EE application
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to create a REST service with JAX-RS, JSON-B, and Open Liberty.
+Learn how to test a MicroProfile or Jakarta EE application using MicroShed Testing.
 
 == What you'll learn
 
-You will learn how to build and test a simple REST service with JAX-RS and JSON-B, which will expose
-the JVM's system properties. The REST service will respond to `GET` requests made to the `\http://localhost:9080/LibertyProject/System/properties` URL.
+You will start with an existing REST application that runs on OpenLiberty, and use https://microshed.org/microshed-testing/[MicroShed Testing] 
+to write tests for the application that will exercise the application inside of a Docker container.
 
-The service responds to a `GET` request with a JSON representation of the system properties, where
-each property is a field in a JSON object like this:
+Often times tests may pass in dev/test environments, but fail in production because the application is
+running differently in production than it is in dev/test. Luckily, we can greatly minimize these dev/prod
+parity issues by testing our application as it runs in the same Docker container we'll be using in production.
 
-[source,json,role="no_copy"]
-----
-{
-  "os.name":"Mac",
-  "java.version": "1.8"
-}
-----
+=== What is Docker?
 
-When you create a new REST application, the design of the API is important. The JAX-RS APIs can be
-used to create JSON-RPC, or XML-RPC APIs, but it wouldn't be a RESTful service. A good RESTful service
-is designed around the resources that are exposed, and on how to create, read, update, and delete the
-resources.
+Docker is a tool that you can use to deploy and run applications with containers. You
+can think of Docker like a virtual machine that runs various applications. However, unlike a typical virtual
+machine, you can run these applications simultaneously on a single system and independent of
+one another.
 
-The service responds to `GET` requests to the `/System/properties` path. The `GET` request should
-return a `200 OK` response that contains all of the JVM's system properties.
+Learn more about Docker on the https://www.docker.com/what-docker[official Docker page^].
+
+Learn how to install Docker on the https://docs.docker.com/engine/installation[official instructions page^].
 
 [role="command"]
 include::{common-includes}/gitclone.adoc[]
@@ -59,25 +55,32 @@ include::{common-includes}/gitclone.adoc[]
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
 To try out the application, first go to the `finish` directory and run the following Maven 
-goal to build the application and deploy it to Open Liberty:
+goal to build the application and run the integration tests on an Open Liberty server in a container:
 [role='command']
 ```
-mvn liberty:run
+mvn verify
 ```
 
-Check out the service at the
-http://localhost:9080/LibertyProject/System/properties[^] URL. 
+This may take some time on the first run, due to downloading dependencies and the Docker image for Open Liberty. If you 
+re-run the same command again, it will be considerably faster.
 
-After you are done checking out the application, stop the Open Liberty server by pressing `CTRL+C`
-in the shell session where you ran the server. Alternatively, you can run the `liberty:stop` goal 
-from the `finish` directory in another shell session:
+In addition to running integration tests from a cold start, you can use MicroShed Testing to run your tests on
+an already running Open Liberty server, such as a server running in Open Liberty's "dev mode":
 
 [role='command']
 ```
-mvn liberty:stop
+mvn liberty:dev
 ```
 
-== Creating a JAX-RS application
+Once the Liberty server starts and you see the message `Press the Enter key to run tests on demand.`, you can press the 
+enter key to run the integration tests. Once the tests finish, you can press the Enter key to run the tests again, or you 
+can make code changes to the application or tests in between re-running the tests. Open Liberty's dev mode will automatically
+recompile and update any application or test code changes that you make.
+
+After you are done running tests in dev mode, stop the Open Liberty server by pressing `CTRL+C`
+in the shell session where you ran the server.
+
+== Bootstrapping your application for testing
 
 Navigate to the `start` directory to begin.
 
@@ -89,208 +92,152 @@ for file changes:
 mvn liberty:dev
 ```
 
+Press the Enter key to run tests, and you will see that 1 test is run:
 
-JAX-RS has two key concepts for creating REST APIs. The most obvious one is the resource itself, which is
-modelled as a class. The second is a JAX-RS application, which groups all exposed resources under a
-common path. You can think of the JAX-RS application as a wrapper for all of your resources.
-
-
-[role="code_command hotspot" ,subs="quotes"]
+[console]
 ----
-#Replace the `SystemApplication` class.#
-`src/main/java/io/openliberty/guides/rest/SystemApplication.java`
-----
-
-The [hotspot=systemApplication]`SystemApplication` class extends the `Application` class, which in turn associates all JAX-RS
-resource classes in the WAR file with this JAX-RS application, making them available under the common
-path specified in the [hotspot=systemApplication]`SystemApplication` class. The [hotspot=applicationPath]`@ApplicationPath` annotation has a
-value that indicates the path within the WAR that the JAX-RS application accepts requests from.
-
-SystemApplication.java
-[source, Java, linenums, role='code_column hide_tags=comment']
-----
-include::finish/src/main/java/io/openliberty/guides/rest/SystemApplication.java[]
+[INFO] Running integration tests...
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running io.openliberty.guides.testing.PersonServiceIT
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s - in io.openliberty.guides.testing.PersonServiceIT
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] Integration tests finished.
 ----
 
-== Creating the JAX-RS resource
+To begin, annotate the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class with the `@MicroShedTest` annotation. This will indicate that the test class uses MicroShed Testing.
 
-In JAX-RS, a single class should represent a single resource, or a group of resources of the same type.
-In this application, a resource might be a system property, or a set of system properties. It is easy
-to have a single class handle multiple different resources, but keeping a clean separation between types
-of resources helps with maintainability in the long run.
-
-[role="code_command hotspot", subs="quotes"]
+[source, Java, linenums, role='code_column']
 ----
-#Create the `PropertiesResource` class.#
-`src/main/java/io/openliberty/guides/rest/PropertiesResource.java`
+import org.microshed.testing.jupiter.MicroShedTest;
+
+@MicroShedTest
+public class PersonServiceIT {
 ----
 
-This resource class has quite a bit of code in it, so let's break it down into manageable chunks.
+Next, we will define some basic information that informs MicroShed Testing if and how it should start our applictaion runtime, and what URL path the application will be available at:
 
-The [hotspot=path file=0]`@Path` annotation on the class indicates that this resource responds to the `properties` path
-in the JAX-RS application. The [hotspot=applicationPath file=1]`@ApplicationPath` annotation in the [hotspot=systemApplication file=1]`SystemApplication` class together with
-the [hotspot=path file=0]`@Path` annotation in this class indicates that the resource is available at the `System/properties`
-path.
-
-JAX-RS maps the HTTP methods on the URL to the methods on the class. The method to call is determined
-by the annotations that are specified on the methods. In the application you are building, an HTTP `GET` request
-to the `System/properties` path results in the system properties being returned.
-
-The [hotspot=get file=0]`@GET` annotation on the method indicates that this method is to be called for the HTTP `GET`
-method. The [hotspot=produces file=0]`@Produces` annotation indicates the format of the content that will be returned. The
-value of the [hotspot=produces file=0]`@Produces` annotation will be specified in the HTTP `Content-Type` response header.
-For this application, a JSON structure is to be returned. The desired `Content-Type` for a JSON
-response is `application/json` with `MediaType.APPLICATION_JSON` instead of the `String` content type. Using a constant such as `MediaType.APPLICATION_JSON` is better because if there's a spelling error, a compile failure occurs.
-
-JAX-RS supports a number of ways to marshal JSON. The JAX-RS 2.1 specification mandates JSON-Binding
-(JSON-B) and JAX-B. 
-
-The method body returns the result of `System.getProperties()` that is of type `java.util.Properties`. Since the method 
-is annotated with `@Produces(MediaType.APPLICATION_JSON)`, JAX-RS uses JSON-B to automatically convert the returned object
-to JSON data in the HTTP response.
-
-PropertiesResource.java
-[source,java,linenums,role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/rest/PropertiesResource.java[]
+import org.microshed.testing.testcontainers.MicroProfileApplication;
+
+@MicroShedTest
+public class PersonServiceIT {
+
+    @Container
+    public static MicroProfileApplication app = new MicroProfileApplication()
+                    .withAppContextRoot("/guide-microshed-testing")
+                    .withReadinessPath("/health/ready");
+
+}
 ----
 
-SystemApplication.java
-[source,java,linenums,role='code_column hide_tags=comment']
-----
-include::finish/src/main/java/io/openliberty/guides/rest/SystemApplication.java[]
-----
+The `withAppContextRoot(String)` method indicates what the base path of the application is. In this case, our application is deployed at http://localhost:9080/guide-microshed-testing, so the app context root is the portion of the URL after the hostname and port.
 
-== Configuring the server
+The `withReadinessPath(String)` method indicates what path should be polled via HTTP to determine application readiness. MicroShed Testing will automatically start or discover the MicroProfileApplication and wait for it to be ready before the tests start to run. In this case, we are utilizing the default application readiness check at http://localhost:9080/health/ready, which is provided by the `mpHealth-2.0` feature in our server.xml configuration. When the readiness URL returns HTTP 200, the application is considered ready and the tests will begin running.
 
-To get the service running, the Liberty server needs to be correctly configured.
+Save your changes to `PersonServiceIT` and press `Enter` in your console window to re-run the tests. You will still see only 1 test running, but the output will be a bit different. Notice that MicroShed Testing is using a "hollow" configuration mode. This means it is re-using an existing application runtime for the test, and not starting up a new application instance each time you initiate a test run.
 
-[role="code_command hotspot", subs="quotes"]
+== Talking to your application with a REST client
+
+With MicroShed Testing we exercise the application in a black-box fashion. This means the tests do not get to access internals of the application. Instead, we can only exercise the application from the "outside", most commonly with HTTP requests. To simplify the HTTP interactions, we can inject a REST client to our test like so:
+
+[source, Java, role='code_column']
 ----
-#Replace the server configuration file.#
-`src/main/liberty/config/server.xml`
-----
+import javax.inject.Inject;
 
-server.xml
-[source,xml,linenums,role="code_column"]
-----
-include::finish/src/main/liberty/config/server.xml[]
-----
-
-The configuration does the following actions:
-
-. Configures the server to enable JAX-RS. This is specified in the [hotspot=featureManager file=0]`featureManager` element.
-. Configures the server to resolve the HTTP port numbers from variables, which are then specified in
-the Maven [hotspot=defaultHttpPort hotspot=defaultHttpsPort file=1]`pom.xml` file. This is specified in the [hotspot=httpEndpoint file=0]`<httpEndpoint/>` element. Variables use the `${variableName}` syntax.
-. Configures the server to run the produced web application on a context root specified in the 
-[hotspot=appContextRoot file=1]`pom.xml` file. This is specified in the [hotspot=webApplication file=0]`<webApplication/>` element.
-
-pom.xml
-[source,xml,linenums,role="code_column"]
-----
-include::finish/pom.xml[]
+@MicroShedTest
+public class PersonServiceIT {
+    
+    @Inject
+    public static PersonService personSvc;
 ----
 
-The variables that are being used in the [hotspot=httpEndpoint hotspot=webApplication file=0]`server.xml` file are provided by the properties set in the Maven [hotspot=defaultHttpPort hotspot=defaultHttpsPort hotspot=appContextRoot file=1]`pom.xml` file. The properties must be formatted as `liberty.var.variableName`.
+Here the injected type `PersonService` is the same `io.openliberty.guides.testing.PersonService` class that is used in our actual application. However, the _instance_ that gets injected is a REST client proxy. So if we call `personSvc.createPerson("Bob", 42)`, what actually happens is the REST client makes an HTTP POST request to the running application at http://localhost:9080/guide-microshed-testing/people/ which triggers the corresponding Java method in the application.
 
-== Building and running the application
+== Writing your first test
 
-The Open Liberty server was started in development mode at the beginning of the guide and all the 
-changes were automatically picked up.
+Now that the setup is complete, we can write our first test case. We will start by testing the basic "create person" use case for our REST-based application. To do this, we use the REST client injected by MicroShed Testing to make the HTTP POST request to our application and read the response:
 
-Check out the service that you created at the
-http://localhost:9080/LibertyProject/System/properties[^] URL. 
-
-
-== Testing the service
-
-You can test this service manually by starting a server and pointing a web browser at the
-http://localhost:9080/LibertyProject/System/properties[^] URL. Automated tests are a much better
-approach because they trigger a failure if a change introduces a bug. JUnit and the JAX-RS Client
-API provide a simple environment to test the application.
-
-You can write tests for the individual units of code outside of a running application server, or they
-can be written to call the application server directly. In this example, you will create a test that
-does the latter.
-
-[role="code_command hotspot", subs="quotes"]
+[source, Java, role='code_column']
 ----
-#Create the `EndpointIT` class.#
-`src/test/java/it/io/openliberty/guides/rest/EndpointIT.java`
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@MicroShedTest
+public class PersonServiceIT {
+
+    // ...
+    
+    @Test
+    public void testCreatePerson() {
+        Long createId = personSvc.createPerson("Hank", 42);
+        assertNotNull(createId);
+    }
+}
 ----
 
-EndpointIT.java
-[source, Java, linenums, role="code_column hide_tags=comment"]
-----
-include::finish/src/test/java/it/io/openliberty/guides/rest/EndpointIT.java[]
-----
+Save the changes and press `Enter` in your console window to run the test. You will see that the test ran again and this time exercised the REST endpoint of your application, including the response of your application's endpoint.
 
-This test class has more lines of code than the resource implementation. This situation is common.
-The test method is indicated with the [hotspot=test file=0]`@Test` annotation.
-
-pom.xml
-[source , xml, linenums,role="code_column"]
+[console]
 ----
-include::finish/pom.xml[]
+INFO org.microshed.testing.jaxrs.RestClientBuilder  - Building rest client for class io.openliberty.guides.testing.PersonService with base path: http://localhost:9080/guide-microshed-testing/ and providers: [class org.microshed.testing.jaxrs.JsonBProvider]
+INFO org.microshed.testing.jaxrs.JsonBProvider  - Response from server: 1809686877352335426
 ----
 
-The test code needs to know some information about the application to make requests. The server port and the application context root are key, and are dictated by the server configuration. While this information can be hardcoded, it is better to specify it in a single place like the Maven [hotspot=defaultHttpPort hotspot=defaultHttpsPort hotspot=appContextRoot file=1]`pom.xml` file. Refer to the [hotspot file=1]`pom.xml` file to see how the application information such as the [hotspot=defaultHttpPort file=1]`default.http.port`, [hotspot=defaultHttpsPort file=1]`default.https.port` and [hotspot=appContextRoot file=1]`app.context.root` elements are provided in the file.
+== Testing error paths
 
+It is also possible to write negative tests using the REST client, along with the new `assertThrows()` method from JUnit 5. This is particularly useful for testing that your application returns the proper error codes such as an HTTP 404 for a GET of a non-existing entity:
 
-These Maven properties are then passed to the Java test program as the [hotspot=testsysprops file=1]`<systemPropertyVariables/>` element in the [hotspot file=1]`pom.xml` file.
-
-Getting the values to create a representation of the URL is simple. The test class uses the [hotspot=systemProperties file=0]`getProperty` method
-to get the application details.
-
-To call the JAX-RS service using the JAX-RS client, first create a `WebTarget` object by calling
-the [hotspot=target file=0]`target` method that provides the URL. To cause the HTTP request to occur, the [hotspot=requestget file=0]`request().get()` method
-is called on the `WebTarget` object. The [hotspot=requestget file=0]`get` method
-call is a synchronous call that blocks until a response is received. This call returns a [hotspot=requestget file=0]`Response`
-object, which can be inspected to determine whether the request was successful.
-
-The first thing to check is that a `200` response was received. The JUnit [hotspot=assertequals file=0]`assertEquals` method can be used for this check.
-
-Check the response body to ensure it returned the right information. Since the client and the server
-are running on the same machine, it is reasonable to expect that the system properties for the local
-and remote JVM would be the same. In this case, an [hotspot=assertosname file=0]`assertEquals` assertion is made so that the `os.name` system property
-for both JVMs is the same. You can write additional assertions to check for more values.
-
-=== Running the tests
-
-Since you started Open Liberty in development mode at the start of the guide, press
-`enter/return` key to run the tests. You will see the following output:
-
-[source,role="no_copy"]
+[source, Java, role='code_column']
 ----
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running it.io.openliberty.guides.rest.EndpointIT
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.884 sec - in it.io.openliberty.guides.rest.EndpointIT
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-Results :
+@MicroShedTest
+public class PersonServiceIT {
 
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+    // ...
+    
+    @Test
+    public void testGetUnknownPerson() {
+        assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
+    }
+}
 ----
 
-To see whether the tests detect a failure, add an assertion that you know fails, or change the existing
-assertion to a constant value that doesn't match the `os.name` system property.
+In this test method we make an HTTP request to http://localhost:9080/guide-microshed-testing/people/-1 to try and get a person with the ID -1, but since none exist we expect an HTTP 404 in return.
 
-When you are done checking out the service, exit development mode by typing `q` in the shell session where
-you ran the server and then pressing the `enter/return` key.
+After saving the file, press `Enter` again and you will see that 2 tests run and pass.
 
+== Testing outside of Dev Mode
+
+Running the tests against a pre-started Liberty server is very conveneint for local development, but this may be tedous to set up in non-dev scenarios such as a CI/CD pipeline. For this reason, MicroShed Testing is also capable of starting and stopping the application runtime before and after the tests are executed. This is primarily accomplished using Docker and Testcontainers.
+
+To test ousdie of Dev Mode, first exit Dev Mode by pressing `CTRL+C`.
+
+Next, run the tests from a "cold start" by running the command:
+[role='command']
+```
+mvn verify
+```
+
+Running tests from a cold start will take a little longer than running the tests from Dev Mode, since the application runtime needs to be started each time. However, the benefits of this mode are:
+- A clean instance is used on each test run, for consistent results
+- Automatically hooks into many existing build pipelines that are set up to run the `integration-test` phase
 
 == Great work! You're done!
 
-You developed a REST service in Open Liberty by using JAX-RS and JSON-B.
+You developed automated tests for a REST service in Open Liberty by using MicroShed Testing and Liberty Dev Mode.
 
 == Related Links
 
-Learn more about MicroProfile.
+Learn more about MicroShed Testing.
 
-https://microprofile.io/[See the MicroProfile specs^]
-
-https://openliberty.io/docs/ref/microprofile[View the MicroProfile API^]
-
+https://microshed.org/microshed-testing/[View the MicroShed Testing website^]
 
 include::{common-includes}/attribution.adoc[subs="attributes"]
