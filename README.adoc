@@ -54,6 +54,14 @@ include::{common-includes}/gitclone.adoc[]
 
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
+First, look at `PersonServiceIT` to see what the tests look like:
+
+PersonServiceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
+----
+
 To try out the application, first go to the `finish` directory and run the following Maven 
 goal to build the application and run the integration tests on an Open Liberty server in a container:
 [role='command']
@@ -62,10 +70,10 @@ mvn verify
 ```
 
 This may take some time on the first run, due to downloading dependencies and the Docker image for Open Liberty. If you 
-re-run the same command again, it will be considerably faster.
+re-run the same command again, it will be faster.
 
 In addition to running integration tests from a cold start, you can use MicroShed Testing to run your tests on
-an already running Open Liberty server, such as a server running in Open Liberty's "dev mode":
+an already running Open Liberty server, using Open Liberty's Dev Mode:
 
 [role='command']
 ```
@@ -74,7 +82,7 @@ mvn liberty:dev
 
 Once the Liberty server starts and you see the message `Press the Enter key to run tests on demand.`, you can press the 
 enter key to run the integration tests. Once the tests finish, you can press the Enter key to run the tests again, or you 
-can make code changes to the application or tests in between re-running the tests. Open Liberty's dev mode will automatically
+can make code changes to the application or tests in between re-running the tests. Dev Mode will automatically
 recompile and update any application or test code changes that you make.
 
 After you are done running tests in dev mode, stop the Open Liberty server by pressing `CTRL+C`
@@ -92,7 +100,7 @@ for file changes:
 mvn liberty:dev
 ```
 
-Press the Enter key to run tests, and you will see that 1 test is run:
+Wait for the message `Press the Enter key to run tests on demand.`, and then press the `Enter` key to run the tests. You will see that 1 test is run:
 
 [console]
 ----
@@ -126,6 +134,7 @@ Next, we will define some basic information that informs MicroShed Testing if an
 [source, Java, linenums, role='code_column']
 ----
 import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.testcontainers.junit.jupiter.Container;
 
 @MicroShedTest
 public class PersonServiceIT {
@@ -138,9 +147,9 @@ public class PersonServiceIT {
 }
 ----
 
-The `withAppContextRoot(String)` method indicates what the base path of the application is. In this case, our application is deployed at http://localhost:9080/guide-microshed-testing, so the app context root is the portion of the URL after the hostname and port.
+The `withAppContextRoot(String)` method indicates what the base path of the application is. In this case, our application is deployed at http://localhost:9080/guide-microshed-testing, so the app context root is `/guide-microshed-testing`, which is the portion of the URL after the hostname and port.
 
-The `withReadinessPath(String)` method indicates what path should be polled via HTTP to determine application readiness. MicroShed Testing will automatically start or discover the MicroProfileApplication and wait for it to be ready before the tests start to run. In this case, we are utilizing the default application readiness check at http://localhost:9080/health/ready, which is provided by the `mpHealth-2.0` feature in our server.xml configuration. When the readiness URL returns HTTP 200, the application is considered ready and the tests will begin running.
+The `withReadinessPath(String)` method indicates what path should be polled via HTTP to determine application readiness. MicroShed Testing will automatically start or discover the MicroProfileApplication and wait for it to be ready before the tests start running. In this case, we are utilizing the default application readiness check at http://localhost:9080/health/ready, which is provided by the `mpHealth-2.0` feature in our server.xml configuration. When the readiness URL returns HTTP 200, the application is considered ready and the tests will begin running.
 
 Save your changes to `PersonServiceIT` and press `Enter` in your console window to re-run the tests. You will still see only 1 test running, but the output will be a bit different. Notice that MicroShed Testing is using a "hollow" configuration mode. This means it is re-using an existing application runtime for the test, and not starting up a new application instance each time you initiate a test run.
 
@@ -174,6 +183,9 @@ public class PersonServiceIT {
 
     // ...
     
+    @Inject
+    public static PersonService personSvc;
+    
     @Test
     public void testCreatePerson() {
         Long createId = personSvc.createPerson("Hank", 42);
@@ -182,37 +194,13 @@ public class PersonServiceIT {
 }
 ----
 
-Save the changes and press `Enter` in your console window to run the test. You will see that the test ran again and this time exercised the REST endpoint of your application, including the response of your application's endpoint.
+Add the above code to `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` and save the changes. Then, press `Enter` in your console window to run the test. You will see that the test ran again and this time exercised the REST endpoint of your application, including the response of your application's endpoint.
 
 [console]
 ----
 INFO org.microshed.testing.jaxrs.RestClientBuilder  - Building rest client for class io.openliberty.guides.testing.PersonService with base path: http://localhost:9080/guide-microshed-testing/ and providers: [class org.microshed.testing.jaxrs.JsonBProvider]
 INFO org.microshed.testing.jaxrs.JsonBProvider  - Response from server: 1809686877352335426
 ----
-
-== Testing error paths
-
-It is also possible to write negative tests using the REST client, along with the new `assertThrows()` method from JUnit 5. This is particularly useful for testing that your application returns the proper error codes such as an HTTP 404 for a GET of a non-existing entity:
-
-[source, Java, role='code_column']
-----
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-@MicroShedTest
-public class PersonServiceIT {
-
-    // ...
-    
-    @Test
-    public void testGetUnknownPerson() {
-        assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
-    }
-}
-----
-
-In this test method we make an HTTP request to http://localhost:9080/guide-microshed-testing/people/-1 to try and get a person with the ID -1, but since none exist we expect an HTTP 404 in return.
-
-After saving the file, press `Enter` again and you will see that 2 tests run and pass.
 
 == Testing outside of Dev Mode
 
@@ -227,8 +215,130 @@ mvn verify
 ```
 
 Running tests from a cold start will take a little longer than running the tests from Dev Mode, since the application runtime needs to be started each time. However, the benefits of this mode are:
+
 - A clean instance is used on each test run, for consistent results
 - Automatically hooks into many existing build pipelines that are set up to run the `integration-test` phase
+
+== Sharing configuration across multiple classes
+
+Typically projects have multiple test classes that all exercise the same type of application deployment. For these cases it is useful to re-use existing configuration and application lifecycle across multiple test classes.
+
+First, create another test class that has the same `@Container` configuration as the existing `PersonServiceIT` class.
+
+[role="code_command hotspot file=1", subs="quotes"]
+----
+#Create the `ErrorPathIT` class.#
+`src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
+----
+
+ErrorPathIT.java
+[source, java, linenums, role='code_column']
+----
+package io.openliberty.guides.testing;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
+
+import org.junit.jupiter.api.Test;
+import org.microshed.testing.jupiter.MicroShedTest;
+import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.testcontainers.junit.jupiter.Container;
+
+@MicroShedTest
+public class ErrorPathIT {
+    
+    @Container
+    public static MicroProfileApplication app = new MicroProfileApplication()
+                    .withAppContextRoot("/guide-microshed-testing")
+                    .withReadinessPath("/health/ready");
+    
+    @Inject
+    public static PersonService personSvc;
+    
+    @Test
+    public void testGetUnknownPerson() {
+        assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
+    }
+
+    @Test
+    public void testCreateBadPersonNullName() {
+        assertThrows(BadRequestException.class, () -> personSvc.createPerson(null, 5));
+    }
+
+    @Test
+    public void testCreateBadPersonNegativeAge() {
+        assertThrows(BadRequestException.class, () -> personSvc.createPerson("NegativeAgePersoN", -1));
+    }
+
+    @Test
+    public void testCreateBadPersonNameTooLong() {
+        assertThrows(BadRequestException.class, () -> personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson", 5));
+    }
+}
+----
+
+Now, run the tests again outside of Dev Mode:
+[role='command']
+```
+mvn verify
+```
+
+You will notice that tests for both classes (`PersonServiceIT` and `ErrorPathIT`) are run, but a new server is started for each test class, resulting in a longer test runtime.
+
+To solve this issue, common configuration can be placed in a class that implements `SharedContainerConfiguration`.
+
+[role="code_command hotspot file=1", subs="quotes"]
+----
+#Create the `AppDeploymentConfig` class.#
+`src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.java`
+----
+
+AppDeploymentConfig.java
+[source, java, linenums, role='code_column']
+----
+include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.java[]
+----
+
+Once the common configuration is created, the test classes can be updated to reference this shared configuration.
+
+Remove the following code from `PersonServiceIT.java` and `ErrorPathIT.java`:
+
+[source, Java, role='code_column']
+----
+@Container
+public static MicroProfileApplication app = new MicroProfileApplication()
+                .withAppContextRoot("/guide-microshed-testing")
+                .withReadinessPath("/health/ready");
+----
+
+Then, annotate each test class with `@SharedContainerConfiguration` referencing the shared configuration class.
+
+[source, Java, role='code_column']
+----
+import org.microshed.testing.SharedContainerConfig;
+
+@MicroShedTest
+@SharedContainerConfig(AppDeploymentConfig.class)
+public class PersonServiceIT {
+----
+
+[source, Java, role='code_column']
+----
+import org.microshed.testing.SharedContainerConfig;
+
+@MicroShedTest
+@SharedContainerConfig(AppDeploymentConfig.class)
+public class ErrorPathIT {
+----
+
+Now, if you re-run the tests, they will run in about half the time because the same server instance is being used for both test classes.
+[role='command']
+```
+mvn verify
+```
 
 == Great work! You're done!
 

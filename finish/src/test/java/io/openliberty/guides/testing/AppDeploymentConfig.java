@@ -1,3 +1,4 @@
+// tag::copyright[]
 /*
  * Copyright (c) 2019 IBM Corporation and others
  *
@@ -16,14 +17,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// end::copyright[]
 package io.openliberty.guides.testing;
 
-import org.junit.jupiter.api.Test;
+import org.microshed.testing.SharedContainerConfiguration;
+import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.testcontainers.junit.jupiter.Container;
 
-public class PersonServiceIT {
+public class AppDeploymentConfig implements SharedContainerConfiguration {
     
-    @Test
-    public void testCreatePerson() {
-    }
-    
+    @Container
+    public static MicroProfileApplication app = new MicroProfileApplication()
+                    .withAppContextRoot("/guide-microshed-testing")
+                    .withReadinessPath("/health/ready");
+
 }

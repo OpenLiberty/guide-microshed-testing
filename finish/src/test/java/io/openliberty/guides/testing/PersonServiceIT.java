@@ -17,29 +17,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// tag::copyright[]
+// end::copyright[]
 package io.openliberty.guides.testing;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
 import javax.inject.Inject;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
 
 import org.junit.jupiter.api.Test;
+import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jupiter.MicroShedTest;
-import org.microshed.testing.testcontainers.MicroProfileApplication;
-import org.testcontainers.junit.jupiter.Container;
 
 @MicroShedTest
+@SharedContainerConfig(AppDeploymentConfig.class)
 public class PersonServiceIT {
-    
-    @Container
-    public static MicroProfileApplication app = new MicroProfileApplication()
-                    .withAppContextRoot("/guide-microshed-testing")
-                    .withReadinessPath("/health/ready");
     
     @Inject
     public static PersonService personSvc;
@@ -104,25 +99,5 @@ public class PersonServiceIT {
         assertEquals("newAgePerson", updatedPerson.name);
         assertEquals(2, updatedPerson.age);
         assertEquals(personId, Long.valueOf(updatedPerson.id));
-    }
-
-    @Test
-    public void testGetUnknownPerson() {
-        assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
-    }
-
-    @Test
-    public void testCreateBadPersonNullName() {
-        assertThrows(BadRequestException.class, () -> personSvc.createPerson(null, 5));
-    }
-
-    @Test
-    public void testCreateBadPersonNegativeAge() {
-        assertThrows(BadRequestException.class, () -> personSvc.createPerson("NegativeAgePersoN", -1));
-    }
-
-    @Test
-    public void testCreateBadPersonNameTooLong() {
-        assertThrows(BadRequestException.class, () -> personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson", 5));
     }
 }
