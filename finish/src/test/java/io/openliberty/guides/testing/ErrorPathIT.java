@@ -27,11 +27,15 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import org.junit.jupiter.api.Test;
+// tag::importSharedContainerConfig[]
 import org.microshed.testing.SharedContainerConfig;
+// end::importSharedContainerConfig[]
 import org.microshed.testing.jupiter.MicroShedTest;
 
 @MicroShedTest
+// tag::sharedContainerConfig[]
 @SharedContainerConfig(AppDeploymentConfig.class)
+// end::sharedContainerConfig[]
 public class ErrorPathIT {
     
     @Inject

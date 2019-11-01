@@ -29,11 +29,15 @@ import java.util.Collection;
 import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
+// tag::importSharedContainerConfig[]
 import org.microshed.testing.SharedContainerConfig;
+// end::importSharedContainerConfig[]
 import org.microshed.testing.jupiter.MicroShedTest;
 
 @MicroShedTest
+// tag::sharedContainerConfig[]
 @SharedContainerConfig(AppDeploymentConfig.class)
+// end::sharedContainerConfig[]
 public class PersonServiceIT {
     
     @Inject

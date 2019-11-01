@@ -337,7 +337,7 @@ Then, update the `ErrorPathIT` class samiliarly to remove the container code.
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
 [role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and [hotspot=container hotspot=mpApp file=4]`MicroProfileApplication app` field, import [hotspot=importSharedContainerConfig file=4]`SharedContainerConfig` annotation, and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=4]`@SharedContainerConfig`. 
+Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and [hotspot=container hotspot=mpApp file=4]`MicroProfileApplication app` field
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
