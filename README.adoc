@@ -54,7 +54,7 @@ include::{common-includes}/gitclone.adoc[]
 
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
-First, look at `PersonServiceIT` class to see what the tests look like:
+First, look at [hotspot file=0]`PersonServiceIT` class to see what the tests look like:
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -70,7 +70,7 @@ mvn verify
 ```
 
 This may take some time on the first run, due to downloading dependencies and the Docker image for Open Liberty. If you 
-re-run the same command again, it will be faster.
+rerun the same command again, it will be faster.
 
 In addition to running integration tests from a cold start, you can use MicroShed Testing to run your tests on
 an already running Open Liberty server, using Open Liberty development mode:
@@ -82,7 +82,7 @@ mvn liberty:dev
 
 Once the Liberty server starts and you see the message `Press the Enter key to run tests on demand.`, you can press the 
 enter key to run the integration tests. Once the tests finish, you can press the Enter key to run the tests again, or you 
-can make code changes to the application or tests in between re-running the tests. Development mode will automatically
+can make code changes to the application or tests in between rerunning the tests. Development mode will automatically
 recompile and update any application or test code changes that you make.
 
 After you are done running tests in development mode, stop the Open Liberty server by typing `q` in the shell session where you ran the server and then press the `enter/return` key. 
@@ -165,7 +165,7 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-Save your changes to `PersonServiceIT` and press `Enter` in your console window to re-run the tests. You will still see only 1 test running, but the output will be a bit different. Notice that MicroShed Testing is using a "hollow" configuration mode. This means it is re-using an existing application runtime for the test, and not starting up a new application instance each time you initiate a test run.
+Save your changes to `PersonServiceIT` and press `Enter` in your console window to rerun the tests. You will still see only 1 test running, but the output will be a bit different. Notice that MicroShed Testing is using a "hollow" configuration mode. This means it is reusing an existing application runtime for the test, and not starting up a new application instance each time you initiate a test run.
 
 == Talking to your application with a REST client
 
@@ -241,7 +241,7 @@ Save the changes, and  press `Enter` in your console window to run the tests.
 
 == Testing outside of development mode
 
-Running the tests against a pre-started Liberty server is very conveneint for local development, but this may be tedous to set up in non-dev scenarios such as a CI/CD pipeline. For this reason, MicroShed Testing is also capable of starting and stopping the application runtime before and after the tests are executed. This is primarily accomplished using Docker and Testcontainers.
+Running the tests against a pre-started Liberty server is very convenient for local development, but this may be tedious to set up in non-dev scenarios such as a CI/CD pipeline. For this reason, MicroShed Testing can start and stop the application runtime before and after the tests are run. This is primarily accomplished using Docker and Testcontainers.
 
 To test outside of development mode, first exit development mode by typing `q` in the shell session where you ran the server and then press the `enter/return` key.
 
@@ -258,7 +258,7 @@ Running tests from a cold start will take a little longer than running the tests
 
 == Sharing configuration across multiple classes
 
-Typically projects have multiple test classes that all exercise the same type of application deployment. For these cases it is useful to re-use existing configuration and application lifecycle across multiple test classes.
+Typically, projects have multiple test classes that all exercise the same type of application deployment. For these cases, it is useful to reuse existing configuration and application lifecycle across multiple test classes.
 
 First, create another test class.
 
@@ -360,7 +360,7 @@ ErrorPathIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-Now, if you re-run the tests, they will run in about half the time because the same server instance is being used for both test classes.
+Now, if you rerun the tests, they will run in about half the time because the same server instance is being used for both test classes.
 [role='command']
 ```
 mvn verify
