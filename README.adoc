@@ -81,7 +81,7 @@ mvn liberty:dev
 ```
 
 Once the Liberty server starts and you see the message `Press the Enter key to run tests on demand.`, you can press the 
-enter key to run the integration tests. Once the tests finish, you can press the Enter key to run the tests again, or you 
+`enter/return` key to run the integration tests. Once the tests finish, you can press the Enter key to run the tests again, or you 
 can make code changes to the application or tests in between rerunning the tests. Development mode will automatically
 recompile and update any application or test code changes that you make.
 
