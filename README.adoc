@@ -99,7 +99,7 @@ for file changes:
 mvn liberty:dev
 ```
 
-Wait for the message `Press the Enter key to run tests on demand.`, and then press the `Enter` key to run the tests. You will see that 1 test is run:
+Wait for the message `Press the Enter key to run tests on demand.`, and then press the `enter/return` key to run the tests. You will see that 1 test is run:
 
 [role="no_copy"]
 ----

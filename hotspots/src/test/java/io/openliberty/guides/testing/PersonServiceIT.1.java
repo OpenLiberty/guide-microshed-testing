@@ -20,10 +20,10 @@
 // end::copyright[]
 package io.openliberty.guides.testing;
 
+import org.junit.jupiter.api.Test;
 // tag::importMicroShedTest[]
 import org.microshed.testing.jupiter.MicroShedTest;
 // end::importMicroShedTest[]
-import org.junit.jupiter.api.Test;
 
 // tag::microShedTest[]
 @MicroShedTest

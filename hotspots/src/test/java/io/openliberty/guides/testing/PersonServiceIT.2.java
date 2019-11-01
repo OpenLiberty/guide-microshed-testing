@@ -24,6 +24,7 @@ package io.openliberty.guides.testing;
 import javax.inject.Inject;
 // end::importInject[]
 
+import org.junit.jupiter.api.Test;
 // tag::importMicroShedTest[]
 import org.microshed.testing.jupiter.MicroShedTest;
 // end::importMicroShedTest[]
@@ -40,7 +41,6 @@ import org.testcontainers.junit.jupiter.Container;
 // tag::importAssertNotNull[]
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 // end::importAssertNotNull[]
-import org.junit.jupiter.api.Test;
 
 // tag::microShedTest[]
 @MicroShedTest
