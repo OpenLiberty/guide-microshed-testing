@@ -20,6 +20,10 @@
 // end::copyright[]
 package io.openliberty.guides.testing;
 
+// tag::importAssertNotNull[]
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+// end::importAssertNotNull[]
+
 // tag::importInject[]
 import javax.inject.Inject;
 // end::importInject[]
@@ -37,10 +41,6 @@ import org.microshed.testing.testcontainers.MicroProfileApplication;
 // tag::importContainer[]
 import org.testcontainers.junit.jupiter.Container;
 // end::importContainer[]
-
-// tag::importAssertNotNull[]
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-// end::importAssertNotNull[]
 
 // tag::microShedTest[]
 @MicroShedTest
