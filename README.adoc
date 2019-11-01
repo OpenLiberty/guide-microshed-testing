@@ -14,6 +14,8 @@
 :page-essential: true
 :page-essential-order: 5
 :page-description: Learn how to test a MicroProfile or Jakarta EE application using MicroShed Testing.
+:page-seo-title: Testing a MicroProfile or Jakarta EE application using MicroShed Testing with Open Liberty docker container
+:page-seo-description: A tutorial on how to develope test for MicroProfile microservice or Jakarta EE application by using Open Liberty development mode that provided by Liberty Maven plugin.
 :guide-author: Open Liberty
 :page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE', 'Testing']
 :page-related-guides: ['rest-intro', 'docker', 'rest-client-java']
