@@ -314,7 +314,7 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
-The [hotspot file=3]`PersonServiceIT` class should be same as the code in the code pane .
+The [hotspot file=3]`PersonServiceIT` class should be same as the code in the code pane.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -337,7 +337,7 @@ ErrorPathIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-The [hotspot file=5]`ErrorPathIT` class should be same as the code in the code pane .
+The [hotspot file=5]`ErrorPathIT` class should be same as the code in the code pane.
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
