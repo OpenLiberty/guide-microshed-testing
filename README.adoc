@@ -332,7 +332,7 @@ PersonServiceIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
 
-Then, update the `ErrorPathIT` class samiliarly to remove the container code.
+Then, update the `ErrorPathIT` class similarly to remove the container code.
 [role="code_command hotspot file=4", subs="quotes"]
 ----
 #Update the `ErrorPathIT` class.#
