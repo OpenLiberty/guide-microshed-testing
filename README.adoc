@@ -276,7 +276,7 @@ ErrorPathIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-`ErrorPathIT` test class that has the same [hotspot=container file=0]`@Container` configuration and the rest client [hotspot=personSvc file=0]`PersonService` as same as the `PersonServiceIT` class.
+`ErrorPathIT` test class has the same [hotspot=container file=0]`@Container` configuration and rest client [hotspot=personSvc file=0]`PersonService` as the `PersonServiceIT` class.
 
 Now, run the tests again outside of development mode:
 [role='command']
