@@ -63,7 +63,6 @@
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.0.1</version>
             </plugin>
             <!-- Plugin to run integration tests -->
             <plugin>

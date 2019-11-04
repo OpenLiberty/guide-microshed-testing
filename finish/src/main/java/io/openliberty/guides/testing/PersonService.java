@@ -1,3 +1,4 @@
+// tag::copyright[]
 /*
  * Copyright (c) 2019 IBM Corporation and others
  *
@@ -16,6 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import java.util.Collection;
@@ -61,7 +63,7 @@ public class PersonService {
     }
 
     @POST
-    public Long createPerson(@QueryParam("name") @NotEmpty @Size(min = 2, max = 50) String name,
+    public Long createPerson(@QueryParam("name") @NotEmpty @Size(min=2, max=50) String name,
                              @QueryParam("age") @PositiveOrZero int age) {
         Person p = new Person(name, age);
         personRepo.put(p.id, p);

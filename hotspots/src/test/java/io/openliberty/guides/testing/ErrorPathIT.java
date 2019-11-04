@@ -27,20 +27,35 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import org.junit.jupiter.api.Test;
+import org.microshed.testing.jupiter.MicroShedTest;
 // tag::importSharedContainerConfig[]
 import org.microshed.testing.SharedContainerConfig;
 // end::importSharedContainerConfig[]
-import org.microshed.testing.jupiter.MicroShedTest;
+// tag::importMPApp[]
+import org.microshed.testing.testcontainers.MicroProfileApplication;
+// end::importMPApp[]
+// tag::importContainer[]
+import org.testcontainers.junit.jupiter.Container;
+// end::importContainer[]
 
 @MicroShedTest
 // tag::sharedContainerConfig[]
 @SharedContainerConfig(AppDeploymentConfig.class)
 // end::sharedContainerConfig[]
 public class ErrorPathIT {
-    
+
+    // tag::container[]
+    @Container
+    public static MicroProfileApplication app = new MicroProfileApplication()
+                    .withAppContextRoot("/guide-microshed-testing")
+                    .withReadinessPath("/health/ready");
+    // end::container[]
+
+    // tag::personSvc[]
     @Inject
     public static PersonService personSvc;
-    
+    // end::personSvc[]
+
     @Test
     public void testGetUnknownPerson() {
         assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
@@ -59,8 +74,8 @@ public class ErrorPathIT {
 
     @Test
     public void testCreateBadPersonNameTooLong() {
-        assertThrows(BadRequestException.class, () ->
-           personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson", 
-           5));
+        assertThrows(BadRequestException.class, () -> 
+          personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson", 
+          5));
     }
 }
