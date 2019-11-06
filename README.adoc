@@ -157,7 +157,7 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
-The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates what the base path of the application is. In this case, our application is deployed at http://localhost:9080/guide-microshed-testing[http://localhost:9080/guide-microshed-testing^], so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`, which is the portion of the URL after the hostname and port.
+The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates what the base path of the application is. In this case, our application is deployed at http://localhost:9080/guide-microshed-testing, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`, which is the portion of the URL after the hostname and port.
 
 The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path should be polled via HTTP to determine application readiness. MicroShed Testing will automatically start or discover the MicroProfileApplication and wait for it to be ready before the tests start running. In this case, we are utilizing the default application readiness check at http://localhost:9080/health/ready[http://localhost:9080/health/ready^], which is provided by the [hotspot=mpHealth file=2]`mpHealth-2.0` feature in our server.xml configuration. When the readiness URL returns HTTP 200, the application is considered ready and the tests will begin running.
 
