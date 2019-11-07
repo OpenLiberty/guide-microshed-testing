@@ -257,7 +257,7 @@ Running tests from a cold start takes a little longer than running tests from de
 
 == Sharing configuration across multiple classes
 
-Typically, projects have multiple test classes that all use the same type of application deployment. For these cases, it is useful to reuse existing configuration and application lifecycle across multiple test classes.
+Typically, projects have multiple test classes that all use the same type of application deployment. For these cases, it is useful to reuse an existing configuration and application lifecycle across multiple test classes.
 
 First, create another test class.
 
