@@ -72,7 +72,7 @@ mvn verify
 ```
 
 This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. If you 
-run the same command again, it is faster.
+run the same command again, it will be faster.
 
 The previous example shows how you can run integration tests from a cold start. With Open Liberty development mode, you can use MicroShed Testing to run tests on
 an already running Open Liberty server. Run the following Maven goal to start Open Liberty in development mode:
