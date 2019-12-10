@@ -26,21 +26,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.jupiter.MicroShedTest;
-import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.microshed.testing.testcontainers.ApplicationContainer;
+import org.microshed.testing.jaxrs.RESTClient;
 import org.testcontainers.junit.jupiter.Container;
 
 @MicroShedTest
 public class PersonServiceIT {
 
-    @Inject
+    @RESTClient
     public static PersonService personSvc;
 
     @Container
-    public static MicroProfileApplication app = new MicroProfileApplication()
+    public static ApplicationContainer app = new ApplicationContainer()
                     .withAppContextRoot("/guide-microshed-testing")
                     .withReadinessPath("/health/ready");
 

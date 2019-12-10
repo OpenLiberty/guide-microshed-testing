@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 // end::importAssertNotNull[]
 
 // tag::importInject[]
-import javax.inject.Inject;
+import org.microshed.testing.jaxrs.RESTClient;
 // end::importInject[]
 
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ import org.microshed.testing.jupiter.MicroShedTest;
 import org.microshed.testing.SharedContainerConfig;
 // end::importSharedContainerConfig[]
 // tag::importMPApp[]
-import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.microshed.testing.testcontainers.ApplicationContainer;
 // end::importMPApp[]
 // tag::importContainer[]
 import org.testcontainers.junit.jupiter.Container;
@@ -51,7 +51,7 @@ import org.testcontainers.junit.jupiter.Container;
 public class PersonServiceIT {
 
     // tag::inject[]
-    @Inject
+    @RESTClient
     // end::inject[]
     // tag::personSvc[]
     public static PersonService personSvc;
@@ -61,7 +61,7 @@ public class PersonServiceIT {
     @Container
     // end::container[]
     // tag::mpApp[]
-    public static MicroProfileApplication app = new MicroProfileApplication()
+    public static ApplicationContainer app = new ApplicationContainer()
                     // tag::withAppContextRoot[]
                     .withAppContextRoot("/guide-microshed-testing")
                     // end::withAppContextRoot[]
