@@ -26,12 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.junit.jupiter.api.Test;
 // tag::importSharedContainerConfig[]
 import org.microshed.testing.SharedContainerConfig;
 // end::importSharedContainerConfig[]
+import org.microshed.testing.jaxrs.RESTClient;
 import org.microshed.testing.jupiter.MicroShedTest;
 
 @MicroShedTest
@@ -40,7 +39,7 @@ import org.microshed.testing.jupiter.MicroShedTest;
 // end::sharedContainerConfig[]
 public class PersonServiceIT {
     
-    @Inject
+    @RESTClient
     public static PersonService personSvc;
     
     @Test

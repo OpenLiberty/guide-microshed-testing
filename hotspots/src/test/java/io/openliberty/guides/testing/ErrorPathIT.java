@@ -22,7 +22,6 @@ package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -32,11 +31,12 @@ import org.microshed.testing.jupiter.MicroShedTest;
 import org.microshed.testing.SharedContainerConfig;
 // end::importSharedContainerConfig[]
 // tag::importMPApp[]
-import org.microshed.testing.testcontainers.MicroProfileApplication;
+import org.microshed.testing.testcontainers.ApplicationContainer;
 // end::importMPApp[]
 // tag::importContainer[]
 import org.testcontainers.junit.jupiter.Container;
 // end::importContainer[]
+import org.microshed.testing.jaxrs.RESTClient;
 
 @MicroShedTest
 // tag::sharedContainerConfig[]
@@ -46,13 +46,13 @@ public class ErrorPathIT {
 
     // tag::container[]
     @Container
-    public static MicroProfileApplication app = new MicroProfileApplication()
+    public static ApplicationContainer app = new ApplicationContainer()
                     .withAppContextRoot("/guide-microshed-testing")
                     .withReadinessPath("/health/ready");
     // end::container[]
 
     // tag::personSvc[]
-    @Inject
+    @RESTClient
     public static PersonService personSvc;
     // end::personSvc[]
 
