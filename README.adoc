@@ -149,7 +149,7 @@ Next, the `PersonServiceIT` class outlines some basic information that informs h
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Import the [hotspot=importMPApp file=1]`MicroProfileApplication` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=1]`MicroProfileApplication` application, and annotate the application with [hotspot=container file=1]`@Container`.
+Import the [hotspot=importMPApp file=1]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=1]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
@@ -159,7 +159,7 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.
 
 The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`.
 
-The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the MicroProfileApplication application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`mpHealth-2.0` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
+The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`mpHealth-2.0` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
 
 server.xml
 [source, xml, linenums, role='code_column']
@@ -179,7 +179,7 @@ With MicroShed Testing, applications are exercised in a black box fashion. Black
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Import the [hotspot=importInject file=0]`Inject` annotation, create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@Inject`.
+Import the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
@@ -306,7 +306,7 @@ Remove the container code from the `PersonServiceIT` class.
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`MicroProfileApplication app` field.
+Remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`ApplicationContainer app` field.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -336,7 +336,7 @@ Similarly, update the `ErrorPathIT` class to remove the container code.
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
 [role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`MicroProfileApplication app` field
+Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']

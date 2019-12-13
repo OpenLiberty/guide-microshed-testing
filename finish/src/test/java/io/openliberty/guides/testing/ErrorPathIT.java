@@ -22,7 +22,6 @@ package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -30,6 +29,7 @@ import org.junit.jupiter.api.Test;
 // tag::importSharedContainerConfig[]
 import org.microshed.testing.SharedContainerConfig;
 // end::importSharedContainerConfig[]
+import org.microshed.testing.jaxrs.RESTClient;
 import org.microshed.testing.jupiter.MicroShedTest;
 
 @MicroShedTest
@@ -38,7 +38,7 @@ import org.microshed.testing.jupiter.MicroShedTest;
 // end::sharedContainerConfig[]
 public class ErrorPathIT {
     
-    @Inject
+    @RESTClient
     public static PersonService personSvc;
     
     @Test
