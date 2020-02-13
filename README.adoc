@@ -105,19 +105,19 @@ Wait for the `Press the Enter key to run tests on demand.` message, and then pre
 
 [role="no_copy"]
 ----
-[INFO] Running integration tests...
-[INFO]
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running io.openliberty.guides.testing.PersonServiceIT
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s - in io.openliberty.guides.testing.PersonServiceIT
-[INFO]
-[INFO] Results:
-[INFO]
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-[INFO]
-[INFO] Integration tests finished.
+ Running integration tests...
+
+ -------------------------------------------------------
+  T E S T S
+ -------------------------------------------------------
+ Running io.openliberty.guides.testing.PersonServiceIT
+ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s - in io.openliberty.guides.testing.PersonServiceIT
+
+ Results:
+
+ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+ Integration tests finished.
 ----
 
 To begin bootstrapping, annotate the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class with the `@MicroShedTest` annotation. This annotation indicates that the test class uses MicroShed Testing.
@@ -159,7 +159,7 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.
 
 The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`.
 
-The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`mpHealth-2.0` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
+The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
 
 server.xml
 [source, xml, linenums, role='code_column']
