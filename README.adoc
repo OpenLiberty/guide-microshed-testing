@@ -344,7 +344,7 @@ ErrorPathIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-Annotate the `ErrorPathIT` class with the `@SharedContainerConfiguration` annotation.
+Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=5", subs="quotes"]
 ----
 #Update the `ErrorPathIT` class.#
