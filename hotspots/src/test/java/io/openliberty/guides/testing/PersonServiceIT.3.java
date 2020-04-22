@@ -27,10 +27,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
-import org.microshed.testing.jupiter.MicroShedTest;
-import org.microshed.testing.testcontainers.ApplicationContainer;
 import org.microshed.testing.jaxrs.RESTClient;
+import org.microshed.testing.jupiter.MicroShedTest;
+// tag::importMPApp[]
+import org.microshed.testing.testcontainers.ApplicationContainer;
+// end::importMPApp[]
+// tag::importContainer[]
 import org.testcontainers.junit.jupiter.Container;
+// end::importContainer[]
 
 @MicroShedTest
 public class PersonServiceIT {
@@ -38,10 +42,14 @@ public class PersonServiceIT {
     @RESTClient
     public static PersonService personSvc;
 
+    // tag::container[]
     @Container
+    // end::container[]
+    // tag::mpApp[]
     public static ApplicationContainer app = new ApplicationContainer()
                     .withAppContextRoot("/guide-microshed-testing")
                     .withReadinessPath("/health/ready");
+    // end::mpApp[]
 
     @Test
     public void testCreatePerson() {
