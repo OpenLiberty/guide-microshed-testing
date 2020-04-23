@@ -24,11 +24,10 @@ package io.openliberty.guides.testing;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 // end::importAssertNotNull[]
 
+import org.junit.jupiter.api.Test;
 // tag::importInject[]
 import org.microshed.testing.jaxrs.RESTClient;
 // end::importInject[]
-
-import org.junit.jupiter.api.Test;
 // tag::importMicroShedTest[]
 import org.microshed.testing.jupiter.MicroShedTest;
 // end::importMicroShedTest[]
