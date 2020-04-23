@@ -1,4 +1,4 @@
-//  Copyright (c) 2019 IBM Corporation and others.
+//  Copyright (c) 2019, 2020 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -311,7 +311,7 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.java[]
 ----
 
-Annotate the `PersonServiceIT` class with the `@SharedContainerConfiguration` annotation that references the `AppDeploymentConfig` shared configuration class.
+Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
 #Update the `PersonServiceIT` class.#
@@ -341,7 +341,7 @@ ErrorPathIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-Annotate the `ErrorPathIT` class with the `@SharedContainerConfiguration` annotation.
+Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=5", subs="quotes"]
 ----
 #Update the `ErrorPathIT` class.#
