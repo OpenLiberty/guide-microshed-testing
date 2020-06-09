@@ -49,7 +49,7 @@ Learn more about Docker on the https://www.docker.com/what-docker[official Docke
 
 == Additional prerequisites
 
-Before you begin, you need to have `Docker` installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[^official Docker documentation]. You will test the application in Docker containers.
+Before you begin, you need to have `Docker` installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^]. You will test the application in Docker containers.
 
 Make sure to start your Docker daemon before you proceed.
 
