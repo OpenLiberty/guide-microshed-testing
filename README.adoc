@@ -1,4 +1,4 @@
-//  Copyright (c) 2019, 2020 IBM Corporation and others.
+//  Copyright (c) 2019, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -17,7 +17,7 @@
 :page-seo-title: Testing a MicroProfile or Jakarta EE application using MicroShed Testing with an Open Liberty docker container
 :page-seo-description: A tutorial on how to develop tests for a MicroProfile microservice or a Jakarta EE application by using Open Liberty development mode provided by the Liberty Maven plugin.
 :guide-author: Open Liberty
-:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE', 'Testing', 'Docker']
+:page-tags: ['MicroProfile', 'Jakarta EE', 'Docker']
 :page-related-guides: ['rest-intro', 'docker', 'rest-client-java']
 :page-permalink: /guides/{projectid}
 :repo-description: Visit the https://openliberty.io/guides/{projectid}.html[website] for the rendered version of the guide.
@@ -160,13 +160,13 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.
 
 The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`.
 
-The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
-
 server.xml
 [source, xml, linenums, role='code_column']
 ----
 include::finish/src/main/liberty/config/server.xml[]
 ----
+
+The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. You still see only one test running, but the output is different. Notice that MicroShed Testing is using a `hollow` configuration mode. This configuration mode means that MicroShed Testing is reusing an existing application runtime for the test, not starting up a new application instance each time you initiate a test run.
 
