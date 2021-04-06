@@ -101,22 +101,12 @@ mvn liberty:dev
 ```
 
 After you see the following message, your application server in dev mode is ready:
-// static guide instructions:
-ifndef::cloud-hosted[]
+
 [role="no_copy"]
 ----
 ************************************************************************
 *    Liberty is running in dev mode.
 ----
-endif::[]
-
-// cloud-hosted guide instructions:
-ifdef::cloud-hosted[]
-```
-******************************************************
-*    Liberty is running in dev mode.
-```
-endif::[]
 
 After the Open Liberty server starts and you see the `Press the Enter key to run tests on demand.` message, you can press the 
 `enter/return` key to run the integration tests. After the tests finish, you can press the `enter/return` key to run the tests again, or you 
