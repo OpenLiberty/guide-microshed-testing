@@ -143,7 +143,7 @@ cd /home/project/guide-microprofile-metrics/start
 endif::[]
 
 [role=command]
-include::{common-includes}/devmode-start.adoc[]
+include::{common-includes}/devmode-lmp33-start.adoc[]
 
 Wait for the `Press the Enter key to run tests on demand.` message, and then press the `enter/return` key to run the tests. You see that one test runs:
 
