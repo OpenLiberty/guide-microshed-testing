@@ -86,6 +86,7 @@ ifdef::cloud-hosted[]
 cd /home/project/guide-microshed-testing/finish
 mvn verify
 ```
+{: codeblock}
 endif::[]
 
 This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. If you 
