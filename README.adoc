@@ -71,10 +71,22 @@ include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
 
 To try out the application, go to the `finish` directory and run the following Maven 
 goal to build the application and run the integration tests on an Open Liberty server in a container:
+
+// static guide instructions:
+ifndef::cloud-hosted[]
 [role='command']
 ```
 mvn verify
 ```
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-microshed-testing/finish
+mvn verify
+```
+endif::[]
 
 This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. If you 
 run the same command again, it will be faster.
@@ -87,6 +99,25 @@ an already running Open Liberty server. Run the following Maven goal to start Op
 mvn liberty:dev
 ```
 
+After you see the following message, your application server in dev mode is ready:
+
+// static guide instructions:
+ifndef::cloud-hosted[]
+[role="no_copy"]
+----
+************************************************************************
+*    Liberty is running in dev mode.
+----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+```
+******************************************************
+*    Liberty is running in dev mode.
+```
+endif::[]
+
 After the Open Liberty server starts and you see the `Press the Enter key to run tests on demand.` message, you can press the 
 `enter/return` key to run the integration tests. After the tests finish, you can press the `enter/return` key to run the tests again, or you 
 can make code changes to the application or tests. Development mode automatically
@@ -97,7 +128,19 @@ where you ran the server, or by typing `q` and then pressing the `enter/return` 
 
 == Bootstrapping your application for testing
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Navigate to the `start` directory to begin.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+To begin, run the following command to navigate to the **start** directory:
+```
+cd /home/project/guide-microprofile-metrics/start
+```
+{: codeblock}
+endif::[]
 
 [role=command]
 include::{common-includes}/devmode-start.adoc[]
@@ -166,7 +209,9 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
+The [hotspot=withReadinessPath file=1]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. 
+MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. 
+In this case, you are using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=2]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. You still see only one test running, but the output is different. Notice that MicroShed Testing is using a `hollow` configuration mode. This configuration mode means that MicroShed Testing is reusing an existing application runtime for the test, not starting up a new application instance each time you initiate a test run.
 
@@ -188,7 +233,7 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
-In this example, the [hotspot=personSvc file=0]`PersonService` injected type is the same [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. However, the _instance_ that gets injected is a REST client proxy. So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HTTP POST request to the application that is running at http://localhost:9080/guide-microshed-testing/people[http://localhost:9080/guide-microshed-testing/people^], which triggers the corresponding Java method in the application.
+In this example, the [hotspot=personSvc file=0]`PersonService` injected type is the same [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. However, the _instance_ that gets injected is a REST client proxy. So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HTTP POST request to the application that is running at `\http://localhost:9080/guide-microshed-testing/people`, which triggers the corresponding Java method in the application.
 
 PersonService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -219,8 +264,8 @@ Save the changes. Then, press the `enter/return` key in your console window to r
 
 [role="no_copy"]
 ----
-INFO org.microshed.testing.jaxrs.RestClientBuilder  - Building rest client for class io.openliberty.guides.testing.PersonService with base path: http://localhost:9080/guide-microshed-testing/ and providers: [class org.microshed.testing.jaxrs.JsonBProvider]
-INFO org.microshed.testing.jaxrs.JsonBProvider  - Response from server: 1809686877352335426
+[INFO] Building rest client for class io.openliberty.guides.testing.PersonService with base path: http://localhost:9080/guide-microshed-testing/ and providers: [class org.microshed.testing.jaxrs.JsonBProvider]
+[INFO] Response from server: 1809686877352335426
 ----
 
 Next, add more tests.
