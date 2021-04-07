@@ -127,7 +127,7 @@ endif::[]
 ifdef::cloud-hosted[]
 To begin, run the following command to navigate to the **start** directory:
 ```
-cd /home/project/guide-microprofile-metrics/start
+cd /home/project/guide-microshed-testing/start
 ```
 {: codeblock}
 endif::[]
