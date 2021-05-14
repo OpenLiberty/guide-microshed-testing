@@ -8,9 +8,9 @@ set -euxo pipefail
 ##############################################################################
 
 mvn -q clean verify
-mvn -Dhttp.keepAlive=false 
-    -Dmaven.wagon.http.pool=false 
-    -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 
+mvn -Dhttp.keepAlive=false \
+    -Dmaven.wagon.http.pool=false \
+    -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
     -q clean package liberty:create liberty:install-feature liberty:deploy
 mvn liberty:start
 curl http://localhost:9080/guide-microshed-testing/people
