@@ -154,15 +154,15 @@ Wait for the `Press the Enter key to run tests on demand.` message, and then pre
  Integration tests finished.
 ----
 
-To begin bootstrapping, replace the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class to include the `@MicroShedTest` annotation. This annotation indicates that the test class uses MicroShed Testing.
+To begin bootstrapping, include the `@MicroShedTest` annotation in `PersonServiceIT` class. This annotation indicates that the test class uses MicroShed Testing.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
+//[role="edit_command_text"]
+//Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -182,8 +182,8 @@ Next, the `PersonServiceIT` class outlines some basic information that informs h
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Replace the `PersonServiceIT` class to include the [hotspot=importMPApp file=1]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=1]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
+// [role="edit_command_text"]
+// Replace the `PersonServiceIT` class to include the [hotspot=importMPApp file=1]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=1]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
@@ -219,9 +219,9 @@ Instead, the application is exercised from the outside, usually with HTTP reques
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Replace the `PersonServiceIT` class to include the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
-create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
+// [role="edit_command_text"]
+// Replace the `PersonServiceIT` class to include the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
+// create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
@@ -251,8 +251,8 @@ Now that the setup is complete, you can write your first test case. Start by tes
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Update the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
+// [role="edit_command_text"]
+// Update the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
@@ -352,8 +352,8 @@ Remove the container code from the `PersonServiceIT` class.
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Update the `PersonServiceIT` class to remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`ApplicationContainer app` field.
+// [role="edit_command_text"]
+// Update the `PersonServiceIT` class to remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`ApplicationContainer app` field.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -367,8 +367,8 @@ Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotatio
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Update the `PersonServiceIT` class to include the [hotspot=importSharedContainerConfig file=3]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=3]`@SharedContainerConfig`. 
+// [role="edit_command_text"]
+// Update the `PersonServiceIT` class to include the [hotspot=importSharedContainerConfig file=3]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=3]`@SharedContainerConfig`. 
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -382,8 +382,8 @@ Similarly, replace the `ErrorPathIT` class to remove the container code.
 #Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
-[role="edit_command_text"]
-Update the 'ErrorPathIT` class to remove the [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
+// [role="edit_command_text"]
+// Update the 'ErrorPathIT` class to remove the [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -397,8 +397,8 @@ Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 #Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
-[role="edit_command_text"]
-Import the [hotspot=importSharedContainerConfig file=5]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=5]`@SharedContainerConfig`. 
+// [role="edit_command_text"]
+// Import the [hotspot=importSharedContainerConfig file=5]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=5]`@SharedContainerConfig`. 
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
