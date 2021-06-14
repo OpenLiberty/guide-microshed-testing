@@ -163,24 +163,12 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 ----
 
 PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importInject,importMPApp,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,mpApp,container,testCreatePerson']
+[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
-// if use PersonServiceIT.2.java, use following:
+
 //[source, java, linenums, role='code_column hide_tags=copyright,importInject,importMPApp,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,mpApp,container,testCreatePerson']
-
-//[role="code_command hotspot file=1", subs="quotes"]
-//----
-//#Replace the `PersonServiceIT` class.#
-//`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-//----
-
-//PersonServiceIT.java
-//[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
-//----
-//include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
-//----
 
 server.xml
 [source, xml, linenums, role='code_column']
