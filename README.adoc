@@ -154,15 +154,13 @@ Wait for the `Press the Enter key to run tests on demand.` message, and then pre
  Integration tests finished.
 ----
 
-To begin bootstrapping, include the `@MicroShedTest` annotation in `PersonServiceIT` class. This annotation indicates that the test class uses MicroShed Testing.
-
+To begin bootstrapping, include the `@MicroShedTest` annotation in the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class. This annotation indicates that the test class uses MicroShed Testing. 
+The `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-//[role="edit_command_text"]
-//Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -175,21 +173,19 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.
 //include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 //----
 
-Next, the `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
+//Next, the `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
 
-[role="code_command hotspot file=1", subs="quotes"]
-----
-#Replace the `PersonServiceIT` class.#
-`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-----
-// [role="edit_command_text"]
-// Replace the `PersonServiceIT` class to include the [hotspot=importMPApp file=1]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=1]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
+//[role="code_command hotspot file=1", subs="quotes"]
+//----
+//#Replace the `PersonServiceIT` class.#
+//`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
+//----
 
-PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
-----
+//PersonServiceIT.java
+//[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
+//----
+//include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+//----
 
 The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`.
 
