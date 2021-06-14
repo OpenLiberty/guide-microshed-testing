@@ -163,7 +163,7 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 ----
 
 PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
+[source, java, linenums, role='code_column hide_tags=copyright,importInject,importMPApp,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,mpApp,container,testCreatePerson']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
