@@ -377,28 +377,12 @@ include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
 ----
 
 Similarly, replace the `ErrorPathIT` class to remove the container code.
+Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=4", subs="quotes"]
 ----
 #Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
-// [role="edit_command_text"]
-// Update the 'ErrorPathIT` class to remove the [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
-
-ErrorPathIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
-----
-
-Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
-[role="code_command hotspot file=5", subs="quotes"]
-----
-#Replace the `ErrorPathIT` class.#
-`src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
-----
-// [role="edit_command_text"]
-// Import the [hotspot=importSharedContainerConfig file=5]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=5]`@SharedContainerConfig`. 
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
