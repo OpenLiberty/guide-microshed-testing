@@ -163,9 +163,9 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 ----
 
 PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 // if use PersonServiceIT.2.java, use following:
 //[source, java, linenums, role='code_column hide_tags=copyright,importInject,importMPApp,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,mpApp,container,testCreatePerson']
@@ -175,17 +175,17 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.
 
 //Next, the `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
 
-//[role="code_command hotspot file=1", subs="quotes"]
-//----
-//#Replace the `PersonServiceIT` class.#
-//`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-//----
+[role="code_command hotspot file=1", subs="quotes"]
+----
+#Replace the `PersonServiceIT` class.#
+`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
+----
 
-//PersonServiceIT.java
-//[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
-//----
-//include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
-//----
+PersonServiceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+----
 
 The [hotspot=withAppContextRoot file=1]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=1]`/guide-microshed-testing`.
 
