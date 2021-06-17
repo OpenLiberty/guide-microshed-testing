@@ -268,7 +268,7 @@ Save the changes, and  press the `enter/return` key in your console window to ru
 
 Running tests in development mode is convenient for local development, but it can be tedious to test against a running Open Liberty server in non-development scenarios such as CI/CD pipelines. For this reason, MicroShed Testing can start and stop the application runtime before and after the tests are run. This process is primarily accomplished by using Docker and Testcontainers.
 
-To test outside of development mode, exit development mode by pressing `CTRL+C` in the command-line session
+To test outside of development mode, exit development mode by pressing `CTRL+C` in the command line session
 where you ran the server, or by typing `q` and then pressing the `enter/return` key.
 
 Next, use the following Maven goal to run the tests from a cold start:
