@@ -113,7 +113,7 @@ After the Open Liberty server starts and you see the `Press the Enter key to run
 can make code changes to the application or tests. Development mode automatically
 recompiles and updates any application or test code changes that you make.
 
-After you're finished running tests, exit development mode by pressing `CTRL+C` in the command-line session
+After you're finished running tests, exit development mode by pressing `CTRL+C` in the command line session
 where you ran the server, or by typing `q` and then pressing the `enter/return` key.
 
 == Bootstrapping your application for testing
