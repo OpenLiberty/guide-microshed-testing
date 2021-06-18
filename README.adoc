@@ -34,8 +34,9 @@ Learn how to use MicroShed Testing to test a MicroProfile or Jakarta EE applicat
 You'll start with an existing REST application that runs on Open Liberty and use https://microshed.org/microshed-testing/[MicroShed Testing^] 
 to write tests for the application that exercise the application in a Docker container.
 
-Sometimes tests might pass in development and testing (dev/test) environments, but fail in production because the application is
-running differently in production than it's in dev/test. Fortunately, you can minimize these parity issues between development and production
+Sometimes tests might pass in development and testing (dev/test) environments, 
+but fail in production because the application is running differently in production than it's in dev/test.
+Fortunately, you can minimize these parity issues between development and production
 by testing your application in the same Docker container that you'll use in production.
 
 === What is Docker?
@@ -89,8 +90,8 @@ mvn verify
 {: codeblock}
 endif::[]
 
-This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. If you 
-run the same command again, it will be faster.
+This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. 
+If you run the same command again, it will be faster.
 
 The previous example shows how you can run integration tests from a cold start. With Open Liberty development mode, you can use MicroShed Testing to run tests on
 an already running Open Liberty server. Run the following Maven goal to start Open Liberty in development mode:
@@ -108,10 +109,11 @@ After you see the following message, your application server in dev mode is read
 *    Liberty is running in dev mode.
 ----
 
-After the Open Liberty server starts and you see the `Press the Enter key to run tests on demand.` message, you can press the 
-`enter/return` key to run the integration tests. After the tests finish, you can press the `enter/return` key to run the tests again, or you 
-can make code changes to the application or tests. Development mode automatically
-recompiles and updates any application or test code changes that you make.
+After the Open Liberty server starts and you see the `Press the Enter key to run tests on demand.` message, 
+you can press the `enter/return` key to run the integration tests. 
+After the tests finish, you can press the `enter/return` key to run the tests again, 
+or you can make code changes to the application or tests. 
+Development mode automatically recompiles and updates any application or test code changes that you make.
 
 After you're finished running tests, exit development mode by pressing `CTRL+C` in the command-line session
 where you ran the server, or by typing `q` and then pressing the `enter/return` key.
@@ -135,7 +137,8 @@ endif::[]
 [role=command]
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-Wait for the `Press the Enter key to run tests on demand.` message, and then press the `enter/return` key to run the tests. You see that one test runs:
+Wait for the `Press the Enter key to run tests on demand.` message, 
+and then press the `enter/return` key to run the tests. You see that one test runs:
 
 [role="no_copy"]
 ----
@@ -210,7 +213,8 @@ In this example, the [hotspot=personSvc file=0]`PersonService` injected type is 
 [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. 
 However, the _instance_ that gets injected is a REST client proxy. 
 So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HTTP POST request to the application 
-that is running at `\http://localhost:9080/guide-microshed-testing/people`, which triggers the corresponding Java method in the application.
+that is running at `\http://localhost:9080/guide-microshed-testing/people`, 
+which triggers the corresponding Java method in the application.
 
 PersonService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -237,7 +241,8 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
-Save the changes. Then, press the `enter/return` key in your console window to run the test. You see that the test ran again and exercised the REST endpoint of your application, including the response of your application's endpoint:
+Save the changes. Then, press the `enter/return` key in your console window to run the test. 
+You see that the test ran again and exercised the REST endpoint of your application, including the response of your application's endpoint:
 
 [role="no_copy"]
 ----
@@ -277,11 +282,14 @@ Next, use the following Maven goal to run the tests from a cold start:
 mvn verify
 ```
 
-Running tests from a cold start takes a little longer than running tests from development mode because the application runtime needs to start each time. However, tests that are run from a cold start use a clean instance on each run to ensure consistent results. These tests also automatically hook into existing build pipelines that are set up to run the `integration-test` phase.
+Running tests from a cold start takes a little longer than running tests from development mode because the application runtime needs to start each time. 
+However, tests that are run from a cold start use a clean instance on each run to ensure consistent results. 
+These tests also automatically hook into existing build pipelines that are set up to run the `integration-test` phase.
 
 == Sharing configuration across multiple classes
 
-Typically, projects have multiple test classes that all use the same type of application deployment. For these cases, it's useful to reuse an existing configuration and application lifecycle across multiple test classes.
+Typically, projects have multiple test classes that all use the same type of application deployment. 
+For these cases, it's useful to reuse an existing configuration and application lifecycle across multiple test classes.
 
 First, create another test class.
 
