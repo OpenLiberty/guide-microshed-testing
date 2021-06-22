@@ -157,8 +157,13 @@ and then press the `enter/return` key to run the tests. You see that one test ru
  Integration tests finished.
 ----
 
-To begin bootstrapping, include the `@MicroShedTest` annotation in the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class. This annotation indicates that the test class uses MicroShed Testing. 
+To begin bootstrapping, include the `@MicroShedTest` annotation in the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class. 
+This annotation indicates that the test class uses MicroShed Testing. 
+
+Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
+
 The `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
+
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
@@ -170,8 +175,10 @@ PersonServiceIT.java
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
+Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
 
-//[source, java, linenums, role='code_column hide_tags=copyright,importInject,importMPApp,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,mpApp,container,testCreatePerson']
+
+The [hotspot=withAppContextRoot file=0]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=0]`/guide-microshed-testing`.
 
 server.xml
 [source, xml, linenums, role='code_column']
