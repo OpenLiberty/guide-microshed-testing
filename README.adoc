@@ -337,9 +337,12 @@ include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.
 ----
 
 After the common configuration is created, the test classes can be updated to reference this shared configuration.
-Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 
 Remove the container code from the `PersonServiceIT` class.
+
+Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
+
+Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
 [role="code_command hotspot file=2", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
@@ -353,6 +356,9 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.
 ----
 
 Similarly, replace the `ErrorPathIT` class to remove the container code.
+
+Remove [hotspot=importMPApp hotspot=importContainer file=3]`import` statements and the [hotspot=container hotspot=mpApp file=3]`ApplicationContainer app` field
+
 Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
@@ -365,6 +371,8 @@ ErrorPathIT.java
 ----
 include::finish/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
+
+Import the [hotspot=importSharedContainerConfig file=3]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=3]`@SharedContainerConfig`. 
 
 If you rerun the tests now, they run in about half the time because the same server instance is being used for both test classes:
 [role='command']
