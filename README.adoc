@@ -21,7 +21,7 @@
 :page-related-guides: ['rest-intro', 'docker', 'rest-client-java']
 :page-permalink: /guides/{projectid}
 :repo-description: Visit the https://openliberty.io/guides/{projectid}.html[website] for the rendered version of the guide.
-:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 = Testing a MicroProfile or Jakarta EE application
 
 [.hidden]
