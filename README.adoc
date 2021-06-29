@@ -240,7 +240,7 @@ Now that the setup is complete, you can write your first test case. Start by tes
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Update the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
+Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
