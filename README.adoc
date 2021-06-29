@@ -175,7 +175,7 @@ PersonServiceIT.java
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
-Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=1]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=1]`@Container`.
+Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container`.
 
 
 The [hotspot=withAppContextRoot file=0]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=0]`/guide-microshed-testing`.
@@ -341,7 +341,7 @@ After the common configuration is created, the test classes can be updated to re
 Remove the container code from the `PersonServiceIT` class.
 [role="code_command hotspot file=2", subs="quotes"]
 ----
-#Update the `PersonServiceIT` class.#
+#Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
@@ -356,7 +356,7 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.
 Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
-#Update the `PersonServiceIT` class.#
+#Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
@@ -368,10 +368,10 @@ PersonServiceIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
 
-Similarly, update the `ErrorPathIT` class to remove the container code.
+Similarly, replace the `ErrorPathIT` class to remove the container code.
 [role="code_command hotspot file=4", subs="quotes"]
 ----
-#Update the `ErrorPathIT` class.#
+#Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
 [role="edit_command_text"]
@@ -386,7 +386,7 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=5", subs="quotes"]
 ----
-#Update the `ErrorPathIT` class.#
+#Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
 [role="edit_command_text"]
