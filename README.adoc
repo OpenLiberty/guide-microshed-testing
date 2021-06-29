@@ -345,6 +345,7 @@ Remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements a
 
 Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
