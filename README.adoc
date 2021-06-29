@@ -398,8 +398,6 @@ ErrorPathIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
-Import the [hotspot=importSharedContainerConfig file=3]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=3]`@SharedContainerConfig`. 
-
 If you rerun the tests now, they run in about half the time because the same server instance is being used for both test classes:
 [role='command']
 ```
