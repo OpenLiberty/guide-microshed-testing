@@ -157,10 +157,7 @@ and then press the `enter/return` key to run the tests. You see that one test ru
  Integration tests finished.
 ----
 
-To begin bootstrapping, include the `@MicroShedTest` annotation in the `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java` class. 
-This annotation indicates that the test class uses MicroShed Testing. 
-
-Import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`.
+To begin bootstrapping, import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`. This annotation indicates that the test class uses MicroShed Testing. 
 
 The `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
 
