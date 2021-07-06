@@ -197,15 +197,14 @@ not starting up a new application instance each time you initiate a test run.
 
 With MicroShed Testing, applications are exercised in a black box fashion. Black box means the tests can't access the application internals. 
 Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, inject a REST client into the tests.
+You need to import the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
+create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-// [role="edit_command_text"]
-// Replace the `PersonServiceIT` class to include the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
-// create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
