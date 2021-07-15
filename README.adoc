@@ -35,8 +35,8 @@ You'll start with an existing REST application that runs on Open Liberty and use
 to write tests for the application that exercise the application in a Docker container.
 
 Sometimes tests might pass in development and testing (dev/test) environments, 
-but fail in production because the application is running differently in production than it's in dev/test.
-Fortunately, you can minimize these parity issues between development and production
+but fail in production because the application runs differently in production than in dev/test.
+Fortunately, you can minimize these differences between dev/test and production
 by testing your application in the same Docker container that you'll use in production.
 
 === What is Docker?
@@ -90,11 +90,11 @@ mvn verify
 {: codeblock}
 endif::[]
 
-This command might take some time to run the first time because the dependencies and the Docker image for Open Liberty must download. 
+This command might take some time to run initially because the dependencies and the Docker image for Open Liberty must download. 
 If you run the same command again, it will be faster.
 
 The previous example shows how you can run integration tests from a cold start. With Open Liberty development mode, you can use MicroShed Testing to run tests on
-an already running Open Liberty server. Run the following Maven goal to start Open Liberty in development mode:
+an active Open Liberty server. Run the following Maven goal to start Open Liberty in development mode:
 
 [role='command']
 ```
@@ -159,7 +159,7 @@ and then press the `enter/return` key to run the tests. You see that one test ru
 
 To begin bootstrapping, import the [hotspot=importMicroShedTest file=0]`MicroShedTest` annotation and annotate the `PersonServiceIT` class with [hotspot=microShedTest file=0]`@MicroShedTest`. This annotation indicates that the test class uses MicroShed Testing. 
 
-The `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application will be available:
+The `PersonServiceIT` class outlines some basic information that informs how MicroShed Testing starts the application runtime and at which URL path the application is available:
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -172,7 +172,7 @@ PersonServiceIT.java
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
-Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container`.
+Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container` annotation.
 
 
 The [hotspot=withAppContextRoot file=0]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=0]`/guide-microshed-testing`.
@@ -185,7 +185,7 @@ include::finish/src/main/liberty/config/server.xml[]
 
 The [hotspot=withReadinessPath file=0]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. 
 MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. 
-In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns `HTTP 200`, the application is considered ready and the tests begin running.
+In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. 
 You still see only one test running, but the output is different. 
@@ -216,7 +216,7 @@ In this example, the [hotspot=personSvc file=0]`PersonService` injected type is 
 [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. 
 However, the _instance_ that gets injected is a REST client proxy. 
 So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HTTP POST request to the application 
-that is running at `\http://localhost:9080/guide-microshed-testing/people`, 
+that is running at `\http://localhost:9080/guide-microshed-testing/people` URL, 
 which triggers the corresponding Java method in the application.
 
 PersonService.java
