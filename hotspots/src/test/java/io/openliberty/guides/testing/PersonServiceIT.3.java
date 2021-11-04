@@ -21,9 +21,7 @@
 package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-// tag::importAssertNotNull[]
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-// end::importAssertNotNull[]
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
@@ -55,10 +53,8 @@ public class PersonServiceIT {
 
     @Test
     public void testCreatePerson() {
-        // tag::testCreatePerson[]
         Long createId = personSvc.createPerson("Hank", 42);
         assertNotNull(createId);
-        // end::testCreatePerson[]
     }
 
     // tag::tests[]
