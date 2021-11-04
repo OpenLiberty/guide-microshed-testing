@@ -77,6 +77,7 @@ goal to build the application and run the integration tests on an Open Liberty s
 ifndef::cloud-hosted[]
 [role='command']
 ```
+cd finish
 mvn verify
 ```
 endif::[]
@@ -315,7 +316,6 @@ After the common configuration is created, the test classes can be updated to re
 
 Remove the container code from the `PersonServiceIT` class.
 Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
-
 Next, annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 [role="code_command hotspot file=2", subs="quotes"]
 ----
@@ -333,7 +333,6 @@ include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
 
 Similarly, replace the `ErrorPathIT` class to remove the container code.
 Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
-
 Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
