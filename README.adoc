@@ -313,8 +313,13 @@ include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.
 
 After the common configuration is created, the test classes can be updated to reference this shared configuration.
 
-Remove the container code from the `PersonServiceIT` class.
-Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
+Remove the container code from the `PersonServiceIT` class by removing [hotspot=importMPApp hotspot=importContainer file=0]`import` statements and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
+
+PersonServiceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+----
 
 Next, annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 [role="code_command hotspot file=2", subs="quotes"]
@@ -331,8 +336,13 @@ PersonServiceIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
 
-Similarly, replace the `ErrorPathIT` class to remove the container code.
-Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
+Similarly, remove the container code from the `PersonServiceIT` class by removing [hotspot=importMPApp hotspot=importContainer file=0]`import` statements and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
+
+ErrorPathIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
+----
 
 Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=3", subs="quotes"]
