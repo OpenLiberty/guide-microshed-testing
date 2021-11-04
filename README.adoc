@@ -170,7 +170,7 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
 Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container` annotation.
 
@@ -209,7 +209,7 @@ create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
 
 In this example, the [hotspot=personSvc file=0]`PersonService` injected type is the same 
@@ -245,7 +245,7 @@ The following tests are then added: [hotspot=testMinSizeName file=0]`testMinSize
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
 Save the changes. Then, press the `enter/return` key in your console window to run the test. 
