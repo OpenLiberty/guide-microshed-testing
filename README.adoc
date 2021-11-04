@@ -207,6 +207,12 @@ So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HT
 that is running at `\http://localhost:9080/guide-microshed-testing/people` URL, 
 which triggers the corresponding Java method in the application.
 
+PersonServiceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
+----
+
 PersonService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
