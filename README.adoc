@@ -320,21 +320,9 @@ include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.
 After the common configuration is created, the test classes can be updated to reference this shared configuration.
 
 Remove the container code from the `PersonServiceIT` class.
-[role="code_command hotspot file=2", subs="quotes"]
-----
-#Replace the `PersonServiceIT` class.#
-`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-----
-[role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`ApplicationContainer app` field.
+Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
 
-PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.java[]
-----
-
-Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
+Next, annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
@@ -350,21 +338,9 @@ include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
 ----
 
 Similarly, replace the `ErrorPathIT` class to remove the container code.
-[role="code_command hotspot file=4", subs="quotes"]
-----
-#Replace the `ErrorPathIT` class.#
-`src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
-----
-[role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
+Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
 
-ErrorPathIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
-----
-
-Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
+Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=5", subs="quotes"]
 ----
 #Replace the `ErrorPathIT` class.#
