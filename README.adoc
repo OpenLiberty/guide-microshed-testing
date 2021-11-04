@@ -168,7 +168,7 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 ----
 
 PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
+[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
@@ -196,21 +196,9 @@ not starting up a new application instance each time you initiate a test run.
 == Talking to your application with a REST client
 
 With MicroShed Testing, applications are exercised in a black box fashion. Black box means the tests can't access the application internals. 
-Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, inject a REST client into the tests.
-You need to import the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
-create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
-
-[role="code_command hotspot file=0", subs="quotes"]
-----
-#Replace the `PersonServiceIT` class.#
-`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-----
-
-PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
-----
+Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, a REST client is injected into the tests.
+To do this, you imported the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
+created a [hotspot=personSvc file=0]`PersonService` REST client, and annotated the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 In this example, the [hotspot=personSvc file=0]`PersonService` injected type is the same 
 [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. 
