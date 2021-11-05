@@ -331,8 +331,14 @@ PersonServiceIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
 
+ErrorPathIT.java
+[source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
+----
+
 Similarly, replace the `ErrorPathIT` class to remove the container code.
-Remove `import` statements for `ApplicationContainer` and `Container`, and the `ApplicationContainer app` field.
+Remove [hotspot=importMPApp hotspot=importContainer file=0]`import` statements and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
 Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
 [role="code_command hotspot file=3", subs="quotes"]
 ----
