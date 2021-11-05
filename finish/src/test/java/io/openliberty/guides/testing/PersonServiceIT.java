@@ -9,7 +9,7 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
- // end::copyright[]
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,10 +30,10 @@ import org.microshed.testing.jupiter.MicroShedTest;
 @SharedContainerConfig(AppDeploymentConfig.class)
 // end::sharedContainerConfig[]
 public class PersonServiceIT {
-    
+
     @RESTClient
     public static PersonService personSvc;
-    
+
     @Test
     public void testCreatePerson() {
         Long createId = personSvc.createPerson("Hank", 42);
@@ -73,8 +73,8 @@ public class PersonServiceIT {
 
         Collection<Person> allPeople = personSvc.getAllPeople();
         assertTrue(allPeople.size() >= 2,
-            "Expected at least 2 people to be registered, but there were only: " + 
-            allPeople);
+            "Expected at least 2 people to be registered, but there were only: "
+            + allPeople);
         assertTrue(allPeople.contains(expected1),
             "Did not find person " + expected1 + " in all people: " + allPeople);
         assertTrue(allPeople.contains(expected2),
@@ -90,7 +90,7 @@ public class PersonServiceIT {
         assertEquals(1, originalPerson.age);
         assertEquals(personId, Long.valueOf(originalPerson.id));
 
-        personSvc.updatePerson(personId, 
+        personSvc.updatePerson(personId,
             new Person(originalPerson.name, 2, originalPerson.id));
         Person updatedPerson = personSvc.getPerson(personId);
         assertEquals("newAgePerson", updatedPerson.name);

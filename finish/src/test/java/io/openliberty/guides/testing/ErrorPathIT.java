@@ -9,7 +9,7 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
- // end::copyright[]
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,10 +29,10 @@ import org.microshed.testing.jupiter.MicroShedTest;
 @SharedContainerConfig(AppDeploymentConfig.class)
 // end::sharedContainerConfig[]
 public class ErrorPathIT {
-    
+
     @RESTClient
     public static PersonService personSvc;
-    
+
     @Test
     public void testGetUnknownPerson() {
         assertThrows(NotFoundException.class, () -> personSvc.getPerson(-1L));
@@ -45,14 +45,14 @@ public class ErrorPathIT {
 
     @Test
     public void testCreateBadPersonNegativeAge() {
-        assertThrows(BadRequestException.class, () -> 
+        assertThrows(BadRequestException.class, () ->
           personSvc.createPerson("NegativeAgePersoN", -1));
     }
 
     @Test
     public void testCreateBadPersonNameTooLong() {
         assertThrows(BadRequestException.class, () ->
-           personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson", 
+           personSvc.createPerson("NameTooLongPersonNameTooLongPersonNameTooLongPerson",
            5));
     }
 }
