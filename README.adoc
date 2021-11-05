@@ -186,7 +186,7 @@ include::finish/src/main/liberty/config/server.xml[]
 
 The [hotspot=withReadinessPath file=0]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. 
 MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. 
-In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
+In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in the server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. 
 You still see only one test running, but the output is different. 
@@ -196,7 +196,7 @@ not starting up a new application instance each time you initiate a test run.
 
 == Talking to your application with a REST client
 
-With MicroShed Testing, applications are exercised in a black box fashion. Black box means the tests can't access the application internals. 
+With MicroShed Testing, applications are exercised in a black-box fashion. Black-box means the tests can't access the application internals. 
 Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, a REST client is injected into the tests.
 To do this, you imported the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
 created a [hotspot=personSvc file=0]`PersonService` REST client, and annotated the REST client with [hotspot=inject file=0]`@RESTClient`.
