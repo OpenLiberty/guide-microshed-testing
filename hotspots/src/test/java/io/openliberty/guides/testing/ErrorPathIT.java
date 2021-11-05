@@ -1,6 +1,6 @@
 // tag::copyright[]
-/*******************************************************************************
- * Copyright (c) 2019 IBM Corporation and others.
+/*
+ * Copyright (c) 2019 IBM Corporation and others
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
