@@ -1,5 +1,5 @@
 // tag::copyright[]
-/*
+/*******************************************************************************
  * Copyright (c) 2019 IBM Corporation and others
  *
  * See the NOTICE file(s) distributed with this work for additional
@@ -102,8 +102,8 @@ public class PersonServiceIT {
 
         Collection<Person> allPeople = personSvc.getAllPeople();
         assertTrue(allPeople.size() >= 2,
-            "Expected at least 2 people to be registered, but there were only: " +
-            allPeople);
+            "Expected at least 2 people to be registered, but there were only: "
+            + allPeople);
         assertTrue(allPeople.contains(expected1),
             "Did not find person " + expected1 + " in all people: " + allPeople);
         assertTrue(allPeople.contains(expected2),
