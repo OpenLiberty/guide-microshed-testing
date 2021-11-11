@@ -298,6 +298,8 @@ mvn verify
 
 Notice that tests for both the `PersonServiceIT` and `ErrorPathIT` classes run, but a new server starts for each test class, resulting in a longer test runtime.
 
+=== Creating a common configuration
+
 To solve this issue, common configuration can be placed in a class that implements `SharedContainerConfiguration`.
   
 [role="code_command hotspot file=1", subs="quotes"]
@@ -313,6 +315,8 @@ include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.
 ----
 
 After the common configuration is created, the test classes can be updated to reference this shared configuration.
+
+=== Updating the PersonServiceIT class
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -336,6 +340,8 @@ PersonServiceIT.java
 ----
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
+
+=== Updating the ErrorPathIT class
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
