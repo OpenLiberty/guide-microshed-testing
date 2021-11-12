@@ -225,13 +225,13 @@ include::finish/src/main/java/io/openliberty/guides/testing/PersonService.java[]
 
 Now that the setup is complete, you can write your first test case. Start by testing the basic "create person" use case for your REST-based application. To test this use case, use the REST client that's injected by MicroShed Testing to make the HTTP POST request to the application and read the response.
 
-[role="code_command hotspot file=0", subs="quotes"]
+[role="code_command hotspot file=1", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
+Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=1]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=1]`testCreatePerson()` method.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
@@ -250,7 +250,7 @@ You see that the test ran again and exercised the REST endpoint of your applicat
 
 Next, add more tests.
 
-[role="code_command hotspot file=1", subs="quotes"]
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
@@ -262,7 +262,7 @@ PersonServiceIT.java
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
-The following tests are added: [hotspot=testMinSizeName file=1]`testMinSizeName()`, [hotspot=testMinAge file=1]`testMinAge()`, [hotspot=testGetPerson file=1]`testGetPerson()`, [hotspot=testGetAllPeople file=1]`testGetAllPeople()`, and [hotspot=testUpdateAge file=1]`testUpdateAge()`.
+The following tests are added: [hotspot=testMinSizeName file=2]`testMinSizeName()`, [hotspot=testMinAge file=2]`testMinAge()`, [hotspot=testGetPerson file=2]`testGetPerson()`, [hotspot=testGetAllPeople file=2]`testGetAllPeople()`, and [hotspot=testUpdateAge file=2]`testUpdateAge()`.
 
 
 Save the changes, and  press the `enter/return` key in your console window to run the tests.
