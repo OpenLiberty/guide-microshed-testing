@@ -333,11 +333,13 @@ After the common configuration is created, the test classes can be updated to re
 
 === Updating the PersonServiceIT class
 
+ifndef::cloud-hosted[]
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
+endif::[]
 
 Remove the container code from the `PersonServiceIT` class.
 Remove [hotspot=importMPApp hotspot=importContainer file=0]`import` statements for `ApplicationContainer` and `Container` and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
@@ -360,11 +362,13 @@ include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
 
 === Updating the ErrorPathIT class
 
+ifndef::cloud-hosted[]
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
+endif::[]
 
 Similarly, replace the `ErrorPathIT` class to remove the container code.
 Remove [hotspot=importMPApp hotspot=importContainer file=0]`import` statements for `ApplicationContainer` and `Container` and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
