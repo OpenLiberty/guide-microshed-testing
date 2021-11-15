@@ -63,6 +63,10 @@ include::{common-includes}/gitclone.adoc[]
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
 First, review the [hotspot file=0]`PersonServiceIT` class to see what the tests look like:
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+From the menu of the IDE, select **File** > **Open** > guide-microshed-testing/finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
+endif::[]
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
