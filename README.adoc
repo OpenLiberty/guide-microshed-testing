@@ -63,6 +63,10 @@ include::{common-includes}/gitclone.adoc[]
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
 First, review the [hotspot file=0]`PersonServiceIT` class to see what the tests look like:
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+From the menu of the IDE, select **File** > **Open** > guide-microshed-testing/finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java
+endif::[]
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -77,6 +81,7 @@ goal to build the application and run the integration tests on an Open Liberty s
 ifndef::cloud-hosted[]
 [role='command']
 ```
+cd finish
 mvn verify
 ```
 endif::[]
@@ -168,9 +173,9 @@ The `PersonServiceIT` class outlines some basic information that informs how Mic
 ----
 
 PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importInject,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,inject,personSvc,testCreatePerson']
+[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
 Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container` annotation.
 
@@ -185,7 +190,7 @@ include::finish/src/main/liberty/config/server.xml[]
 
 The [hotspot=withReadinessPath file=0]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. 
 MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. 
-In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in our server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
+In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in the server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. 
 You still see only one test running, but the output is different. 
@@ -195,22 +200,10 @@ not starting up a new application instance each time you initiate a test run.
 
 == Talking to your application with a REST client
 
-With MicroShed Testing, applications are exercised in a black box fashion. Black box means the tests can't access the application internals. 
-Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, inject a REST client into the tests.
-You need to import the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
-create a [hotspot=personSvc file=0]`PersonService` REST client, and annotate the REST client with [hotspot=inject file=0]`@RESTClient`.
-
-[role="code_command hotspot file=0", subs="quotes"]
-----
-#Replace the `PersonServiceIT` class.#
-`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-----
-
-PersonServiceIT.java
-[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
-----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
-----
+With MicroShed Testing, applications are exercised in a black-box fashion. Black-box means the tests can't access the application internals. 
+Instead, the application is exercised from the outside, usually with HTTP requests. To simplify the HTTP interactions, a REST client is injected into the tests.
+To do this, you imported the [hotspot=importInject file=0]`org.microshed.testing.jaxrs.RESTClient` annotation, 
+created a [hotspot=personSvc file=0]`PersonService` REST client, and annotated the REST client with [hotspot=inject file=0]`@RESTClient`.
 
 In this example, the [hotspot=personSvc file=0]`PersonService` injected type is the same 
 [hotspot file=1]`io.openliberty.guides.testing.PersonService` class that is used in your application. 
@@ -218,6 +211,12 @@ However, the _instance_ that gets injected is a REST client proxy.
 So, if you call `personSvc.createPerson("Bob", 42)`, the REST client makes an HTTP POST request to the application 
 that is running at `\http://localhost:9080/guide-microshed-testing/people` URL, 
 which triggers the corresponding Java method in the application.
+
+PersonServiceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright,importAssertNotNull,importSharedContainerConfig,sharedContainerConfig,testCreatePerson']
+----
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
+----
 
 PersonService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -241,7 +240,7 @@ Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
 
 Save the changes. Then, press the `enter/return` key in your console window to run the test. 
@@ -264,7 +263,7 @@ Next, add more tests.
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
 
 The following tests are added: [hotspot=testMinSizeName file=1]`testMinSizeName()`, [hotspot=testMinAge file=1]`testMinAge()`, [hotspot=testGetPerson file=1]`testGetPerson()`, [hotspot=testGetAllPeople file=1]`testGetAllPeople()`, and [hotspot=testUpdateAge file=1]`testUpdateAge()`.
@@ -318,9 +317,11 @@ mvn verify
 
 Notice that tests for both the `PersonServiceIT` and `ErrorPathIT` classes run, but a new server starts for each test class, resulting in a longer test runtime.
 
+=== Creating a common configuration
+
 To solve this issue, common configuration can be placed in a class that implements `SharedContainerConfiguration`.
   
-[role="code_command hotspot file=1", subs="quotes"]
+[role="code_command hotspot file=0", subs="quotes"]
 ----
 #Create the `AppDeploymentConfig` class.#
 `src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.java`
@@ -334,29 +335,28 @@ include::finish/src/test/java/io/openliberty/guides/testing/AppDeploymentConfig.
 
 After the common configuration is created, the test classes can be updated to reference this shared configuration.
 
-Remove the container code from the `PersonServiceIT` class.
-[role="code_command hotspot file=2", subs="quotes"]
-----
-#Replace the `PersonServiceIT` class.#
-`src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
-----
-[role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=2]`import` statements and the [hotspot=container hotspot=mpApp file=2]`ApplicationContainer app` field.
+=== Updating the PersonServiceIT class
 
+ifndef::cloud-hosted[]
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.3.java[]
+include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.2.java[]
 ----
+endif::[]
 
-Annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
-[role="code_command hotspot file=3", subs="quotes"]
+Remove the container code from the `PersonServiceIT` class.
+Remove [hotspot=importMPApp hotspot=importContainer file=0]`import` statements for `ApplicationContainer` and `Container` and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
+
+Next, annotate the `PersonServiceIT` class with the `@SharedContainerConfig` annotation that references the `AppDeploymentConfig` shared configuration class.
+
+[role="code_command hotspot file=1", subs="quotes"]
 ----
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
 [role="edit_command_text"]
-Import the [hotspot=importSharedContainerConfig file=3]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=3]`@SharedContainerConfig`. 
+Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -364,29 +364,28 @@ PersonServiceIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
 
-Similarly, replace the `ErrorPathIT` class to remove the container code.
-[role="code_command hotspot file=4", subs="quotes"]
-----
-#Replace the `ErrorPathIT` class.#
-`src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
-----
-[role="edit_command_text"]
-Remove [hotspot=importMPApp hotspot=importContainer file=4]`import` statements and the [hotspot=container hotspot=mpApp file=4]`ApplicationContainer app` field
+=== Updating the ErrorPathIT class
 
+ifndef::cloud-hosted[]
 ErrorPathIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
+endif::[]
 
-Annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
-[role="code_command hotspot file=5", subs="quotes"]
+Similarly, replace the `ErrorPathIT` class to remove the container code.
+Remove [hotspot=importMPApp hotspot=importContainer file=0]`import` statements for `ApplicationContainer` and `Container` and the [hotspot=container hotspot=mpApp file=0]`ApplicationContainer app` field.
+
+Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotation.
+
+[role="code_command hotspot file=1", subs="quotes"]
 ----
 #Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
 [role="edit_command_text"]
-Import the [hotspot=importSharedContainerConfig file=5]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=5]`@SharedContainerConfig`. 
+Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
