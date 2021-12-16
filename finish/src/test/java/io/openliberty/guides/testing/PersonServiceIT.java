@@ -1,22 +1,14 @@
 // tag::copyright[]
-/*
- * Copyright (c) 2019 IBM Corporation and others
+/*******************************************************************************
+ * Copyright (c) 2019, 2021 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * See the NOTICE file(s) distributed with this work for additional
- * information regarding copyright ownership.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+ * Contributors:
+ *     IBM Corporation - Initial implementation
+ *******************************************************************************/
 // end::copyright[]
 package io.openliberty.guides.testing;
 
@@ -38,10 +30,10 @@ import org.microshed.testing.jupiter.MicroShedTest;
 @SharedContainerConfig(AppDeploymentConfig.class)
 // end::sharedContainerConfig[]
 public class PersonServiceIT {
-    
+
     @RESTClient
     public static PersonService personSvc;
-    
+
     @Test
     public void testCreatePerson() {
         Long createId = personSvc.createPerson("Hank", 42);
@@ -81,8 +73,8 @@ public class PersonServiceIT {
 
         Collection<Person> allPeople = personSvc.getAllPeople();
         assertTrue(allPeople.size() >= 2,
-            "Expected at least 2 people to be registered, but there were only: " + 
-            allPeople);
+            "Expected at least 2 people to be registered, but there were only: "
+            + allPeople);
         assertTrue(allPeople.contains(expected1),
             "Did not find person " + expected1 + " in all people: " + allPeople);
         assertTrue(allPeople.contains(expected2),
@@ -98,7 +90,7 @@ public class PersonServiceIT {
         assertEquals(1, originalPerson.age);
         assertEquals(personId, Long.valueOf(originalPerson.id));
 
-        personSvc.updatePerson(personId, 
+        personSvc.updatePerson(personId,
             new Person(originalPerson.name, 2, originalPerson.id));
         Person updatedPerson = personSvc.getPerson(personId);
         assertEquals("newAgePerson", updatedPerson.name);
