@@ -21,9 +21,9 @@ package io.openliberty.guides.testing;
 import org.junit.jupiter.api.Test;
 
 public class PersonServiceIT {
-    
+
     @Test
     public void testCreatePerson() {
     }
-    
+
 }

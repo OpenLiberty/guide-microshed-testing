@@ -1,15 +1,15 @@
 <server>
 
     <featureManager>
-        <feature>jaxrs-2.1</feature>
-        <feature>jsonb-1.0</feature>
+        <feature>restfulWS-3.0</feature>
+        <feature>jsonb-2.0</feature>
         <!-- tag::mpHealth[] -->
-        <feature>mpHealth-3.1</feature>
+        <feature>mpHealth-4.0</feature>
         <!-- end::mpHealth[] -->
-        <feature>mpConfig-2.0</feature>
-        <feature>mpRestClient-2.0</feature>
-        <feature>beanValidation-2.0</feature>
-        <feature>cdi-2.0</feature>
+        <feature>mpConfig-3.0</feature>
+        <feature>mpRestClient-3.0</feature>
+        <feature>beanValidation-3.0</feature>
+        <feature>cdi-3.0</feature>
     </featureManager>
         
 </server>
