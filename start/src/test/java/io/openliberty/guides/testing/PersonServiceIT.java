@@ -1,4 +1,5 @@
-/*
+// tag::copyright[]
+/*******************************************************************************
  * Copyright (c) 2019 IBM Corporation and others
  *
  * See the NOTICE file(s) distributed with this work for additional
@@ -15,7 +16,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *******************************************************************************/
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import org.junit.jupiter.api.Test;

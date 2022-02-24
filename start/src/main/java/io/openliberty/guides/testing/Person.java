@@ -1,4 +1,5 @@
-/*
+// tag::copyright[]
+/*******************************************************************************
  * Copyright (c) 2019, 2022 IBM Corporation and others
  *
  * See the NOTICE file(s) distributed with this work for additional
@@ -15,7 +16,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *******************************************************************************/
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import java.util.Objects;
@@ -57,12 +59,13 @@ public class Person {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Person))
+        if (obj == null || !(obj instanceof Person)) {
             return false;
+        }
         Person other = (Person) obj;
-        return Objects.equals(id, other.id) &&
-               Objects.equals(name, other.name) &&
-               Objects.equals(age, other.age);
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(age, other.age);
     }
 
     @Override

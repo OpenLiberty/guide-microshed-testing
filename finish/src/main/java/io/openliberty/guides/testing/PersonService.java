@@ -1,5 +1,5 @@
 // tag::copyright[]
-/*
+/*******************************************************************************
  * Copyright (c) 2019, 2022 IBM Corporation and others
  *
  * See the NOTICE file(s) distributed with this work for additional
@@ -16,7 +16,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *******************************************************************************/
 // end::copyright[]
 package io.openliberty.guides.testing;
 
@@ -57,13 +57,15 @@ public class PersonService {
     @Path("/{personId}")
     public Person getPerson(@PathParam("personId") long id) {
         Person foundPerson = personRepo.get(id);
-        if (foundPerson == null)
+        if (foundPerson == null) {
             personNotFound(id);
+        }
         return foundPerson;
     }
 
     @POST
-    public Long createPerson(@QueryParam("name") @NotEmpty @Size(min=2, max=50) String name,
+    public Long createPerson(@QueryParam("name") @NotEmpty @Size(min = 2, max = 50)
+                              String name,
                              @QueryParam("age") @PositiveOrZero int age) {
         Person p = new Person(name, age);
         personRepo.put(p.id, p);
@@ -74,8 +76,9 @@ public class PersonService {
     @Path("/{personId}")
     public void updatePerson(@PathParam("personId") long id, @Valid Person p) {
         Person toUpdate = getPerson(id);
-        if (toUpdate == null)
+        if (toUpdate == null) {
             personNotFound(id);
+        }
         personRepo.put(id, p);
     }
 
@@ -83,8 +86,9 @@ public class PersonService {
     @Path("/{personId}")
     public void removePerson(@PathParam("personId") long id) {
         Person toDelete = personRepo.get(id);
-        if (toDelete == null)
+        if (toDelete == null) {
             personNotFound(id);
+        }
         personRepo.remove(id);
     }
 
