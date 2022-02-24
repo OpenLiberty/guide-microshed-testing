@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2019, 2022 IBM Corporation and others
+ * Copyright (c) 2019, 2022 IBM Corporation and others.
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -31,7 +31,7 @@ import jakarta.validation.constraints.Size;
 
 public class Person {
 
-    private static final Random r = new Random();
+    private static final Random R = new Random();
 
     @NotNull
     public final long id;
@@ -54,7 +54,7 @@ public class Person {
             @JsonbProperty("id") Long id) {
         this.name = name;
         this.age = age;
-        this.id = id == null ? r.nextLong() : id;
+        this.id = id == null ? R.nextLong() : id;
     }
 
     @Override
