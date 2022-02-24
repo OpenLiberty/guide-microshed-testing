@@ -1,35 +1,29 @@
-/*
- * Copyright (c) 2019 IBM Corporation and others
+// tag::copyright[]
+/*******************************************************************************
+ * Copyright (c) 2019, 2022 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * See the NOTICE file(s) distributed with this work for additional
- * information regarding copyright ownership.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+ * Contributors:
+ *     IBM Corporation - Initial implementation
+ *******************************************************************************/
+// end::copyright[]
 package io.openliberty.guides.testing;
 
 import java.util.Objects;
 import java.util.Random;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import jakarta.json.bind.annotation.JsonbCreator;
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 public class Person {
 
-    private static final Random r = new Random();
+    private static final Random R = new Random();
 
     @NotNull
     public final long id;
@@ -52,17 +46,18 @@ public class Person {
             @JsonbProperty("id") Long id) {
         this.name = name;
         this.age = age;
-        this.id = id == null ? r.nextLong() : id;
+        this.id = id == null ? R.nextLong() : id;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Person))
+        if (obj == null || !(obj instanceof Person)) {
             return false;
+        }
         Person other = (Person) obj;
-        return Objects.equals(id, other.id) &&
-               Objects.equals(name, other.name) &&
-               Objects.equals(age, other.age);
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(age, other.age);
     }
 
     @Override
