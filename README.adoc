@@ -41,6 +41,7 @@ Docker is a tool that you can use to deploy and run applications with containers
 
 Learn more about Docker on the https://www.docker.com/what-docker[official Docker website^].
 
+
 == Additional prerequisites
 
 Before you begin, Docker needs to be installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^]. You'll test the application in Docker containers.
@@ -72,7 +73,7 @@ To try out the application, go to the `finish` directory and run the following M
 // static guide instructions:
 ifndef::cloud-hosted[]
 [role='command']
-```bash
+```
 cd finish
 mvn verify
 ```
@@ -106,6 +107,7 @@ After you see the following message, your application server in dev mode is read
 After the Open Liberty server starts and you see the `To run tests on demand, press Enter.` message, you can press the `enter/return` key to run the integration tests. After the tests finish, you can press the `enter/return` key to run the tests again, or you can make code changes to the application or tests. Development mode automatically recompiles and updates any application or test code changes that you make.
 
 After you're finished running tests, exit development mode by pressing `CTRL+C` in the command-line session where you ran the server, or by typing `q` and then pressing the `enter/return` key.
+
 
 == Bootstrapping your application for testing
 
@@ -159,8 +161,8 @@ PersonServiceIT.java
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
-Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container` annotation.
 
+Import the [hotspot=importMPApp file=0]`ApplicationContainer` class and the [hotspot=importContainer file=0]`Container` annotation, create the [hotspot=mpApp file=0]`ApplicationContainer` application, and annotate the application with [hotspot=container file=0]`@Container` annotation.
 
 The [hotspot=withAppContextRoot file=0]`withAppContextRoot(String)` method indicates the base path of the application. The app context root is the portion of the URL after the hostname and port. In this case, the application is deployed at the `\http://localhost:9080/guide-microshed-testing` URL, so the app context root is [hotspot=withAppContextRoot file=0]`/guide-microshed-testing`.
 
@@ -173,6 +175,7 @@ include::finish/src/main/liberty/config/server.xml[]
 The [hotspot=withReadinessPath file=0]`withReadinessPath(String)` method indicates what path is polled by HTTP to determine application readiness. MicroShed Testing automatically starts the ApplicationContainer application and waits for it to be ready before the tests start running. In this case, you're using the default application readiness check at the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL, which is enabled by the [hotspot=mpHealth file=1]`MicroProfile Health` feature in the server.xml configuration file. When the readiness URL returns the `HTTP 200` message, the application is considered ready and the tests begin running.
 
 Save your changes to the `PersonServiceIT` class and press the `enter/return` key in your console window to rerun the tests. You still see only one test running, but the output is different. Notice that MicroShed Testing is using a `hollow` configuration mode. This configuration mode means that MicroShed Testing is reusing an existing application runtime for the test, not starting up a new application instance each time you initiate a test run.
+
 
 == Talking to your application with a REST client
 
@@ -202,14 +205,14 @@ Now that the setup is complete, you can write your first test case. Start by tes
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright,importSharedContainerConfig,sharedContainerConfig']
 ----
 include::hotspots/src/test/java/io/openliberty/guides/testing/PersonServiceIT.1.java[]
 ----
+
+Replace the `PersonServiceIT` class to include the [hotspot=importAssertNotNull file=0]`assertNotNull` static method and write the test logic in the [hotspot=testCreatePerson file=0]`testCreatePerson()` method.
 
 Save the changes. Then, press the `enter/return` key in your console window to run the test. You see that the test ran again and exercised the REST endpoint of your application, including the response of your application's endpoint:
 
@@ -238,6 +241,7 @@ The following tests are added: [hotspot=testMinSizeName file=1]`testMinSizeName(
 
 Save the changes, and  press the `enter/return` key in your console window to run the tests.
 
+
 == Testing outside of development mode
 
 Running tests in development mode is convenient for local development, but it can be tedious to test against a running Open Liberty server in non-development scenarios such as CI/CD pipelines. For this reason, MicroShed Testing can start and stop the application runtime before and after the tests are run. This process is primarily accomplished by using Docker and Testcontainers.
@@ -251,6 +255,7 @@ mvn verify
 ```
 
 Running tests from a cold start takes a little longer than running tests from development mode because the application runtime needs to start each time. However, tests that are run from a cold start use a clean instance on each run to ensure consistent results. These tests also automatically hook into existing build pipelines that are set up to run the `integration-test` phase.
+
 
 == Sharing configuration across multiple classes
 
@@ -316,14 +321,14 @@ Next, annotate the `PersonServiceIT` class with the `@SharedContainerConfig` ann
 #Replace the `PersonServiceIT` class.#
 `src/test/java/io/openliberty/guides/testing/PersonServiceIT.java`
 ----
-[role="edit_command_text"]
-Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
 
 PersonServiceIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/test/java/io/openliberty/guides/testing/PersonServiceIT.java[]
 ----
+
+Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `PersonServiceIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
 
 === Updating the ErrorPathIT class
 
@@ -344,8 +349,6 @@ Next, annotate the `ErrorPathIT` class with the `@SharedContainerConfig` annotat
 #Replace the `ErrorPathIT` class.#
 `src/test/java/io/openliberty/guides/testing/ErrorPathIT.java`
 ----
-[role="edit_command_text"]
-Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
 
 ErrorPathIT.java
 [source, java, linenums, role='code_column hide_tags=copyright']
@@ -353,11 +356,14 @@ ErrorPathIT.java
 include::finish/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 ----
 
+Import the [hotspot=importSharedContainerConfig file=1]`SharedContainerConfig` annotation and annotate the `ErrorPathIT` class with [hotspot=sharedContainerConfig file=1]`@SharedContainerConfig`. 
+
 If you rerun the tests now, they run in about half the time because the same server instance is being used for both test classes:
 [role='command']
 ```
 mvn verify
 ```
+
 
 == Great work! You're done!
 
