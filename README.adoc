@@ -277,7 +277,8 @@ include::hotspots/src/test/java/io/openliberty/guides/testing/ErrorPathIT.java[]
 
 The `ErrorPathIT` test class has the same [hotspot=container file=0]`@Container` configuration and [hotspot=personSvc file=0]`PersonService` REST client as the `PersonServiceIT` class.
 
-Now, run the tests again outside of development mode: [role='command']
+Now, run the tests again outside of development mode:
+[role='command']
 ```
 mvn verify
 ```
